@@ -1,9 +1,13 @@
 import './App.css';
+import Pantry from './pages/Pantry'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div>
-    </div>
+    <>
+      <Navbar />
+      <Pantry />
+    </>
   );
 }
 

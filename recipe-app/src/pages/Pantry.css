@@ -1,0 +1,43 @@
+#content {
+  min-height: 100vh;
+
+  background-image: linear-gradient(to bottom right, whitesmoke, peachpuff);
+}
+
+.content-head {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.searchbar-section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items:flex-start;
+}
+
+.section {
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+
+  width: 300px;
+  margin: 30px;
+  padding: 30px;
+  background-color: whitesmoke;
+
+  box-shadow: 4px 6px 20px 5px #e7dbd1;
+  border-radius: 30px;
+}
+
+.section:hover {
+  box-shadow: 4px 10px 30px 4px #d6c1af;
+  transition: box-shadow .2s ease;
+}

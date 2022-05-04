@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+  max-width: calc(100% - 60px); /* subtract pixels to compensate for adding padding */
+
+  padding-left: 30px;
+  padding-right: 30px;
+
+  background-color: white;
+
+  /* centered layout and spaced-out alignment of items on navbar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay {
+  /* to display shadow below bar */
+  position: fixed;
+  box-shadow: 2px 4px 8px 5px #e7dbd1;
+  z-index: 10;
+}
+
+
+#title {
+  color: coral;
+}
+
+.tab-title {
+  margin-left: 10px;
+  transition: font-weight .1s;
+}
+
+.tab-title:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.left-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.left-header > p {
+  color: salmon;
+}

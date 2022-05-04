@@ -1,3 +1,4 @@
+/*
 .App {
   text-align: center;
 }
@@ -35,4 +36,47 @@
   to {
     transform: rotate(360deg);
   }
+}
+*/
+
+body {
+  padding: 0;
+  margin: 0;
+
+  position: relative;
+}
+
+h1 {
+  color: #331F00;
+}
+
+input, button {
+  padding: 12px;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 1em;
+}
+
+button {
+  background-color: coral;
+  color: white;
+  border: none;
+
+  transition: transform .2s ease;
+}
+
+button:hover {
+  transform: translate(0px, -8px);
+  box-shadow: 5px 6px 8px 2px lightgrey;
+  cursor: pointer;
+}
+
+input {
+  color: darksalmon;
+  border: 1px solid coral;
+}
+
+input:hover, input:focus {
+  /* orange border */
+  outline: 1px solid coral;
 }
