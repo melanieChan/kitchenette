@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Pantry.css';
+import '../Page.css';
 
 const Pantry = () => {
   const [pantryItems, setPantryItems] = useState(null);
@@ -39,26 +39,6 @@ const Pantry = () => {
             </div>
         )}
       </div>
-
-
-    <div className="section">
-      <h1>Recipe name</h1>
-      <p>ingredient list</p>
-      <p>step-by-step instructions</p>
-      <div>
-        <button>save</button>
-      </div>
-    </div>
-
-    <div className="section">
-      <h1>Saved Recipe name</h1>
-      <p>ingredient list</p>
-      <p>step-by-step instructions</p>
-      <div>
-        <button>unsave</button>
-        <button>use</button>
-      </div>
-    </div>
 
     </div>
   );
