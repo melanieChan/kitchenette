@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../Page.css';
 
 const Pantry = () => {
+  document.title = "Pantry"
+
   const [pantryItems, setPantryItems] = useState(null);
 
   useEffect(() => {

@@ -9,9 +9,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
-      <Navbar />
-
       <BrowserRouter>
+        <Navbar />
+
         <Routes>
           <Route path="/" element={<Pantry />} />
           <Route path="pantry" element={<Pantry />} />

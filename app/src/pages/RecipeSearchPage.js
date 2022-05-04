@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../Page.css';
 
 const RecipeSearchPage = () => {
+  document.title = "Search Recipes"
+
   const [recipeSearchResults, setRecipeSearchResults] = useState(null);
 
   useEffect(() => {
