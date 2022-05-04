@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../Page.css';
 
+import Select from '../components/Select'
+
 const Pantry = () => {
   document.title = "Pantry"
 
+  const [newIngredientInput, setNewIngredientInput] = useState('')
   const [pantryItems, setPantryItems] = useState(null);
 
   useEffect(() => {
@@ -22,7 +25,9 @@ const Pantry = () => {
         <div className="searchbar-section">
           <p>Enter an item to add</p>
           <div>
-            <input placeholder="new item"/>
+            <Select
+              placeholder="new item"
+              setSelection={setNewIngredientInput}/>
             <button>add item</button>
           </div>
         </div>

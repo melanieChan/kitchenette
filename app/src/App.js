@@ -5,6 +5,7 @@ import RecipeSearchPage from './pages/RecipeSearchPage'
 import Navbar from './components/Navbar'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'gestalt/dist/gestalt.css';
 
 function App() {
   return (

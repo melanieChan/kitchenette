@@ -80,3 +80,9 @@ input:hover, input:focus {
   /* orange border */
   outline: 1px solid coral;
 }
+
+#combobox-controlled:focus { /* library component */
+  outline: 1px solid coral;
+  border:1px solid coral;
+  box-shadow: 0 0 10px coral;
+}
