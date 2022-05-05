@@ -22,11 +22,12 @@ const Pantry = () => {
   function addItem() {
     const newIngredientData = {
       name: newIngredientInput,
-      quantity: 5
+      quantity: 5,
+      classNames: 'newItem' // passed to display card for styling
     }
     // adds to beginning of list
     var pantryItemsCopy = [newIngredientData, ...pantryItems]
-    setPantryItems(pantryItemsCopy)
+    setPantryItems(pantryItemsCopy) // updates display
   }
 
   return (
@@ -52,7 +53,11 @@ const Pantry = () => {
       <div className="list">
         {pantryItems &&
           pantryItems.map(item =>
-            <IngredientCard key={item} ingredient={item} />
+            <IngredientCard
+              key={item}
+              ingredient={item}
+              classNames={item.classNames}
+              />
         )}
       </div>
 

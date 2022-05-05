@@ -25,7 +25,7 @@
 }
 
 /* Ingredient List: the new item added to the beginning of the list will animate and pop into view */
-.list .ingredient-card:first-child {
+.list .newItem:first-child {
   /* states before animation */
   opacity: 0;
   transform: scale(0);
@@ -47,8 +47,12 @@
   }
 }
 
-/* Ingredient List: rest of ingredients will gradually come into view */
-.list .ingredient-card:not(:first-child) {
+/* Ingredient List: rest of ingredient cards will gradually come into view
+  selector styles ingredient cards in the list that isn't the recently added card */
+.list .section.ingredient-card:not(.newItem:first-child),
+
+.list .recipe-card /* also applies to recipe cards */
+{ /* will animate cards when they first load up */
   opacity: 0;
 
   animation: appear 1s ease-in-out forwards;
