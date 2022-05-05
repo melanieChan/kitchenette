@@ -24,26 +24,48 @@
   align-items:flex-start;
 }
 
-/* the new item added to the beginning of the list will animate */
+/* Ingredient List: the new item added to the beginning of the list will animate and pop into view */
 .list .ingredient-card:first-child {
+  /* states before animation */
   opacity: 0;
-  animation: grow 1s ease-in-out forwards;
-  -webkit-animation: grow 1s ease-in-out forwards;
+  transform: scale(0);
+
+  /* animate */
+  animation: grow 1s ease-in-out forwards,
+            appear 1s ease-in-out forwards;
+  -webkit-animation: grow 1s ease-in-out forwards
+            appear 1s ease-in-out forwards;
 }
 @-webkit-keyframes grow {
   to {
-    transform: scale(0);
-    opacity: 1;
+    transform: scale(1);
   }
 }
 @keyframes grow {
   to {
     transform: scale(1);
+  }
+}
+
+/* Ingredient List: rest of ingredients will gradually come into view */
+.list .ingredient-card:not(:first-child) {
+  opacity: 0;
+
+  animation: appear 1s ease-in-out forwards;
+  -webkit-animation: appear 1s ease-in-out forwards;
+}
+@-webkit-keyframes appear {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes appear {
+  to {
     opacity: 1;
   }
 }
 
-
+/* card that shows one entry of data */
 .section {
   display: flex;
   align-items:center;

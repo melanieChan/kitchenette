@@ -18,8 +18,7 @@ function App() {
           <Route path="pantry" element={<Pantry />} />
           <Route path="search" element={<RecipeSearchPage />} />
         </Routes>
-      </BrowserRouter>,
-
+      </BrowserRouter>
     </>
   );
 }
