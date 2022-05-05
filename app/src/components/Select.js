@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { ComboBox } from 'gestalt';
 
+/*
+  An input field to type in text, or select from a given list of text options
+ - shows a list of options
+ - manages user input by sending data of updated user input back to parent component
+*/
 export default function Select({placeholder, selection, setSelection}) {
   const optionsList = [
     'apple',

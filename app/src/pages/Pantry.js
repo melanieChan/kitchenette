@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Page.css';
 
 import Select from '../components/Select'
+import IngredientCard from '../components/IngredientCard'
 
 const Pantry = () => {
   document.title = "Pantry"
@@ -17,6 +18,17 @@ const Pantry = () => {
     ])
   }, [])
 
+  // adds a new item to the list of ingredients
+  function addItem() {
+    const newIngredientData = {
+      name: newIngredientInput,
+      quantity: 5
+    }
+    // adds to beginning of list
+    var pantryItemsCopy = [newIngredientData, ...pantryItems]
+    setPantryItems(pantryItemsCopy)
+  }
+
   return (
     <div id="content">
 
@@ -25,10 +37,13 @@ const Pantry = () => {
         <div className="searchbar-section">
           <p>Enter an item to add</p>
           <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '500px'}}>
+            {/* input field */}
             <Select
               placeholder="new item"
               setSelection={setNewIngredientInput}/>
-            <button>add item</button>
+
+            {/* submit button */}
+            <button onClick={addItem}>add item</button>
           </div>
         </div>
       </div>
@@ -37,13 +52,7 @@ const Pantry = () => {
       <div className="list">
         {pantryItems &&
           pantryItems.map(item =>
-            <div className="section">
-              <h1>{item.quantity} {item.name}</h1>
-              <div>
-                <button>+ stock up</button>
-                <button>- use up</button>
-              </div>
-            </div>
+            <IngredientCard key={item} ingredient={item} />
         )}
       </div>
 

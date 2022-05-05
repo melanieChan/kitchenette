@@ -24,6 +24,26 @@
   align-items:flex-start;
 }
 
+/* the new item added to the beginning of the list will animate */
+.list .ingredient-card:first-child {
+  opacity: 0;
+  animation: grow 1s ease-in-out forwards;
+  -webkit-animation: grow 1s ease-in-out forwards;
+}
+@-webkit-keyframes grow {
+  to {
+    transform: scale(0);
+    opacity: 1;
+  }
+}
+@keyframes grow {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
 .section {
   display: flex;
   align-items:center;
