@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Page.css';
+import RecipeCard from '../components/RecipeCard'
 
 const RecipeSearchPage = () => {
   document.title = "Search Recipes"
@@ -32,14 +33,7 @@ const RecipeSearchPage = () => {
       <div className="list">
         {recipeSearchResults &&
           recipeSearchResults.map(item =>
-            <div className="section">
-              <h1>{item.name}</h1>
-              <p>ingredient list</p>
-              <p>step-by-step instructions</p>
-              <div>
-                <button>save</button>
-              </div>
-            </div>
+            <RecipeCard recipe={item}/>
         )}
       </div>
 
