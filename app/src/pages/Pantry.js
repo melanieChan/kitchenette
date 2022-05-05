@@ -24,7 +24,7 @@ const Pantry = () => {
       <div className="content-head">
         <div className="searchbar-section">
           <p>Enter an item to add</p>
-          <div>
+          <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '500px'}}>
             <Select
               placeholder="new item"
               setSelection={setNewIngredientInput}/>

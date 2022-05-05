@@ -25,21 +25,28 @@ export default function Select({placeholder, selection, setSelection}) {
     setSelection(data.item.label)
   }
 
+  // user clicks 'x' button to erase their input
+  const handleClear = (data) => {
+    setSelection('')
+  }
+
   return (
-    <ComboBox
-      className="ComboBox"
-      accessibilityClearButtonLabel="Clear category value"
-      errorMessage={''}
-      id="controlled"
-      label="Choose a category to display top search trends"
-      labelDisplay="hidden"
-      noResultText="No results for your selection"
-      onBlur={() => {}}
-      onClear={() => {}}
-      onChange={handleChange}
-      onSelect={handleSelect}
-      options={options}
-      placeholder={placeholder}
-    />
+    <div style={{width: '80%'}}>
+      <ComboBox
+        className="ComboBox"
+        accessibilityClearButtonLabel="Clear category value"
+        errorMessage={''}
+        id="controlled"
+        label="Choose a category to display top search trends"
+        labelDisplay="hidden"
+        noResultText="No results for your selection"
+        onBlur={() => {}}
+        onClear={handleClear}
+        onChange={handleChange}
+        onSelect={handleSelect}
+        options={options}
+        placeholder={placeholder}
+      />
+    </div>
   );
 }

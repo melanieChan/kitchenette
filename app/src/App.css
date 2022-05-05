@@ -81,6 +81,10 @@ input:hover, input:focus {
   outline: 1px solid coral;
 }
 
+#combobox-controlled {
+  border:1px solid coral;
+}
+
 #combobox-controlled:focus { /* library component */
   outline: 1px solid coral;
   border:1px solid coral;
