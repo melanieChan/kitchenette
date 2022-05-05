@@ -25,14 +25,23 @@
   color: coral;
 }
 
+
+/* clickable page link */
 .tab-title {
   margin-left: 10px;
-  transition: font-weight .1s;
 }
 
-.tab-title:hover {
+.tab-title:hover, .tab-title:focus, .tab-title:active {
   cursor: pointer;
-  font-weight: bold;
+
+  transform: scale(1.2);
+  transition: transform .5s;
+}
+
+/* will be shown as a diabled page link */
+.tab-current {
+  color: #FFBCA2 !important; /* overrides styling from other selector */
+  padding: 10px;
 }
 
 .left-header {
@@ -41,7 +50,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  width: 500px;
+  width: 600px;
 }
 
 .left-header > p {
