@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Page.css';
 import RecipeCard from '../components/RecipeCard'
+import MultiSelect from '../components/MultiSelect'
 
 const RecipeSearchPage = () => {
   document.title = "Search Recipes"
@@ -23,8 +24,14 @@ const RecipeSearchPage = () => {
         <div className="searchbar-section">
           <p>Enter ingredients to search</p>
           <div>
-            <input placeholder="ingredients"/>
-            <button>search</button>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', minWidth: '500px'}}>
+              <MultiSelect
+                placeholder="ingredients"
+                />
+
+              {/* submit button */}
+              <button style={{height: '2.5em'}} >search</button>
+            </div>
           </div>
         </div>
       </div>
