@@ -8,7 +8,7 @@ const RecipeCard = ({recipe}) => {
       <p>ingredient list</p>
       <p>step-by-step instructions</p>
       <div>
-        <button>save</button>
+        <button className="button">save</button>
       </div>
     </div>
   );

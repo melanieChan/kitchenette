@@ -37,7 +37,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <button>Log in</button>
+        <button className="button">Log in</button>
       </div>
 
       {/* this div has no real functionality, it is only to fix styling */}

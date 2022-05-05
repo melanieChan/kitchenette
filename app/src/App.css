@@ -9,14 +9,14 @@ h1 {
   color: #331F00;
 }
 
-input, button {
+input, .button {
   padding: 12px;
   margin: 5px;
   border-radius: 20px;
   font-size: 1em;
 }
 
-button {
+.button {
   background-color: coral;
   color: white;
   border: none;
@@ -24,7 +24,7 @@ button {
   transition: transform .2s ease;
 }
 
-button:hover {
+.button:hover {
   transform: translate(0px, -8px);
   box-shadow: 5px 6px 8px 2px lightgrey;
   cursor: pointer;
@@ -51,16 +51,28 @@ button:hover {
 }
 
 /* tagged combobox */
-[role="combobox"][aria-owns="tags"] .XiG.zI7.iyn.Hsu > div:first-of-type {
+[role="combobox"][aria-owns="tags"] .XiG.zI7.iyn.Hsu > div:first-of-type
+
+/* alternate selector for tagged combobox */
+/* ,[role="combobox"][aria-owns="tags"] div:nth-child(2):first-of-type > div:first-child */
+{
   outline: 1px solid coral;
   border:1px solid coral;
   box-shadow: 0 0 10px coral;
 }
 
-/* alternate selector for tagged combobox */
-/* [role="combobox"][aria-owns="tags"] div:nth-child(2):first-of-type > div:first-child
-{
-  outline: 1px solid coral;
-  border:1px solid coral;
-  box-shadow: 0 0 10px coral;
-} */
+/* icon button */
+.icon-button-container button > div > div {
+  background-color: coral;
+}
+.icon-button-container:hover button > div > div {
+  background-color: black;
+}
+
+/* icon inside icon button */
+.icon-button-container button > div > div > svg {
+  color: white;
+}
+.icon-button-container:hover button > div > div > svg {
+  color: coral;
+}

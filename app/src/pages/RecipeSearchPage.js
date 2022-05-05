@@ -30,7 +30,7 @@ const RecipeSearchPage = () => {
                 />
 
               {/* submit button */}
-              <button style={{height: '2.5em'}} >search</button>
+              <button className="button" style={{height: '2.5em'}} >search</button>
             </div>
           </div>
         </div>

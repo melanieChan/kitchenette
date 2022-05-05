@@ -44,7 +44,7 @@ const Pantry = () => {
               setSelection={setNewIngredientInput}/>
 
             {/* submit button */}
-            <button onClick={addItem}>add item</button>
+            <button className="button" onClick={addItem}>add item</button>
           </div>
         </div>
       </div>
