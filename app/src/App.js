@@ -1,6 +1,7 @@
 import './App.css';
 import Pantry from './pages/Pantry'
 import RecipeSearchPage from './pages/RecipeSearchPage'
+import Cookbook from './pages/Cookbook'
 
 import Navbar from './components/Navbar'
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Pantry />} />
           <Route path="pantry" element={<Pantry />} />
           <Route path="search" element={<RecipeSearchPage />} />
+          <Route path="cookbook" element={<Cookbook />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -4,6 +4,11 @@
   background-image: linear-gradient(to bottom right, whitesmoke, peachpuff);
 }
 
+.page-content { /* body of cookbook page */
+  display: flex;
+  flex-direction: column;
+}
+
 .content-head {
   display: flex;
   justify-content: center;

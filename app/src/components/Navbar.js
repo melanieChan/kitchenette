@@ -12,7 +12,7 @@ const Navbar = () => {
   const paths = [
     {name: 'My Pantry', route: '/pantry'},
     {name: 'Search Recipe', route: '/search'},
-    {name: 'My Cookbook', route: '/search'},
+    {name: 'My Cookbook', route: '/cookbook'},
   ]
 
   const changeRoute = (route) => {
