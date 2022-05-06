@@ -62,14 +62,22 @@ input, .button {
 }
 
 /* icon button */
-.icon-button-container button > div > div {
+.icon-button-container button > div > div
+
+/* icon button that was recently selected */
+, .icon-button-container button:focus > div > div
+{
   background-color: coral;
 }
 .icon-button-container:hover button > div > div {
   background-color: black;
 }
 
-/* icon inside icon button */
+.icon-button-container button > div > div {
+  box-shadow: 0 0 0 coral; /* overrides gestalt's blue focus border */
+}
+
+/* icon symbol inside icon button */
 .icon-button-container button > div > div > svg {
   color: white;
 }
