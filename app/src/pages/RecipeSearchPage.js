@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Page.css';
-import RecipeCard from '../components/RecipeCard'
-import MultiSelect from '../components/MultiSelect'
+import RecipeCard from '../components/cards/RecipeCard'
+import MultiSelect from '../components/inputs/MultiSelect'
 
 const RecipeSearchPage = () => {
   document.title = "Search Recipes"

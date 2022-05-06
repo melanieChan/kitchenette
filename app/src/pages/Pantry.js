@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../Page.css';
 
-import Select from '../components/Select'
-import IngredientCard from '../components/IngredientCard'
+import Select from '../components/inputs/Select'
+import IngredientCard from '../components/cards/IngredientCard'
 
 import { NumberField } from 'gestalt';
 
