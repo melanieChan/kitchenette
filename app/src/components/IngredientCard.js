@@ -3,9 +3,20 @@ import { IconButton } from 'gestalt';
 
 // A card showing details about an ingredient
 const IngredientCard = ({ingredient, classNames}) => {
+  const [quantity, setQuantity] = useState(0)
+
+  useEffect(() => {
+    // get data from params
+    setQuantity(ingredient.quantity)
+  }, [ingredient])
+
+  function changeQuantity(newQuantity) {
+    setQuantity(newQuantity)
+  }
+
   return (
     <div className={`section ingredient-card ${classNames}`} key={ingredient.name}>
-      <h1>{ingredient.quantity} {ingredient.name}</h1>
+      <h1>{quantity} {ingredient.name}</h1>
 
       {/* increment and decrement buttons */}
       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '100%'}}>
@@ -17,10 +28,11 @@ const IngredientCard = ({ingredient, classNames}) => {
             iconColor="darkGray"
             size="lg"
             selected={false}
+            onClick={() => changeQuantity(quantity + 1)}
             tooltip={{
               text: "Stock up",
               accessibilityLabel: "Increment quantity",
-              idealDirection: "up"
+              idealDirection: "down"
             }}
           />
         </div>
@@ -31,10 +43,11 @@ const IngredientCard = ({ingredient, classNames}) => {
             bgColor="lightGray"
             iconColor="darkGray"
             size="lg"
+            onClick={() => changeQuantity(quantity - 1)}
             tooltip={{
               text: "Use up",
               accessibilityLabel: "Use one serving of",
-              idealDirection: "up"
+              idealDirection: "down"
             }}
           />
         </div>
