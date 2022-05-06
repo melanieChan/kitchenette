@@ -7,7 +7,7 @@ import { ComboBox } from 'gestalt';
  - shows a list of options
  - manages user input by sending data of updated user input back to parent component
 */
-export default function Select({placeholder, selection, setSelection}) {
+export default function Select({label, placeholder, selection, setSelection}) {
   const optionsList = [
     'apple',
     'blueberries',
@@ -36,14 +36,13 @@ export default function Select({placeholder, selection, setSelection}) {
   }
 
   return (
-    <div style={{width: '80%'}}>
+    <div style={{width: '60%'}}>
       <ComboBox
         className="ComboBox"
         accessibilityClearButtonLabel="Clear category value"
         errorMessage={''}
         id="controlled"
-        label="Choose a category to display top search trends"
-        labelDisplay="hidden"
+        label={label}
         noResultText="No results for your selection"
         onBlur={() => {}}
         onClear={handleClear}
