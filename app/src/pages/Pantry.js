@@ -6,6 +6,8 @@ import IngredientCard from '../components/cards/IngredientCard'
 
 import { NumberField } from 'gestalt';
 
+import { addItemToPantry } from '../api/provider';
+
 const Pantry = () => {
   document.title = "Pantry"
 
@@ -38,11 +40,23 @@ const Pantry = () => {
     const newIngredientData = {
       name: newIngredientInput,
       quantity: newIngredientQuantity,
-      classNames: 'newItem' // passed to display card for styling
     }
-    // adds to beginning of list
-    var pantryItemsCopy = [newIngredientData, ...pantryItems]
-    setPantryItems(pantryItemsCopy) // updates display
+
+    // call API to store data
+    addItemToPantry('token123', newIngredientData) // pass in data through parameters
+      .then( (response) => {
+        console.log(response);
+
+        // after data was stored, update UI
+        let ingredientDataDisplay = {
+          ...newIngredientData,
+          classNames: 'newItem' // passed to display card for styling
+        }
+        // adds to beginning of list
+        let pantryItemsCopy = [ingredientDataDisplay, ...pantryItems]
+        setPantryItems(pantryItemsCopy) // updates display
+      })
+      .catch(err => { console.log(err) });
   }
 
   return (
