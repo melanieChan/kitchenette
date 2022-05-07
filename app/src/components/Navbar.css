@@ -22,7 +22,12 @@
 
 
 #title {
-  color: coral;
+  color: salmon;
+}
+
+#title:hover {
+  cursor: pointer;
+  background-image: radial-gradient(ellipse, #ffe8db 0%, white 80%);
 }
 
 

@@ -5,7 +5,7 @@ body {
   position: relative;
 }
 
-h1 {
+h1, p {
   color: #331F00;
 }
 
@@ -14,6 +14,10 @@ input, .button {
   margin: 5px;
   border-radius: 20px;
   font-size: 1em;
+}
+
+.coral-text {
+  color: coral;
 }
 
 .button {

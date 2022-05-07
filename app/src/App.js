@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import { UserContext } from './auth/UserContext'
 
+import Authentication from './pages/Authentication'
 import Pantry from './pages/Pantry'
 import RecipeSearchPage from './pages/RecipeSearchPage'
 import Cookbook from './pages/Cookbook'
@@ -22,7 +23,7 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Pantry />} />
+            <Route path="/" element={<Authentication />} />
             <Route path="pantry" element={<Pantry />} />
             <Route path="search" element={<RecipeSearchPage />} />
             <Route path="cookbook" element={<Cookbook />} />

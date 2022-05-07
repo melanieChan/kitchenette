@@ -28,7 +28,7 @@ const Navbar = () => {
     <>
       <div className="header overlay">
         <div className="left-header">
-          <h1 id="title">Recipe App</h1>
+          <h1 id="title" onClick={() => changeRoute('/')}>Recipe App</h1>
 
           {/* horizontal row of tabs that user can click on to go to a different page */}
           {paths.map(path =>
