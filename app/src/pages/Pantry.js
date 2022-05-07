@@ -6,7 +6,7 @@ import IngredientCard from '../components/cards/IngredientCard'
 
 import { NumberField } from 'gestalt';
 
-import { addItemToPantry } from '../api/provider';
+import { addItemToPantry, getPantryItems } from '../api/provider';
 
 const Pantry = () => {
   document.title = "Pantry"
@@ -18,11 +18,15 @@ const Pantry = () => {
 
   const quantityInputRef = useRef()
   useEffect(() => {
-    setPantryItems([
-      {name: 'apples', quantity: 5},
-      {name: 'blueberries', quantity: 6},
-      {name: 'oranges', quantity: 3},
-    ])
+    // get pantry ingredient data from database
+    getPantryItems('token123')
+      .then( (response) => {
+        console.log(response);
+
+        // after data received, update UI
+        setPantryItems(response)
+      })
+      .catch(err => { console.log(err) });
   }, [])
 
   useEffect(() => {

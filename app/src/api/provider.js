@@ -25,3 +25,30 @@ export const addItemToPantry = (token, ingredientData) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const getPantryItems = (token) => {
+  return fetch(`http://localhost:5000/get_pantry_items/`, {
+    method: "POST",
+
+    // request using token
+    body: JSON.stringify({token: token}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      // console.log('d',data);
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}

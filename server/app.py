@@ -28,7 +28,7 @@ class User(db.Model):
     password = db.Column(db.Text)
 
     def __repr__(self):
-        return f'User {self.username}, {self.password} ({self.user_id})'
+        return f'User username={self.username}, password={self.password}, id={self.user_id}'
 
 # an ingredient that a user has in their pantry
 class PantryIngredient(db.Model):
@@ -38,7 +38,7 @@ class PantryIngredient(db.Model):
     quantity = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'PantryIngredient {self.quantity} of {self.ingredient_id} owned by {self.user_id} ({self.pantry_ingredient_id})'
+        return f'PantryIngredient user_id={self.user_id} ingredient_id={self.ingredient_id} quantity={self.quantity}  ({self.pantry_ingredient_id})'
 
 # one ingredient
 class Ingredient(db.Model):
@@ -46,7 +46,7 @@ class Ingredient(db.Model):
     name = db.Column(db.Text)
 
     def __repr__(self):
-        return f'Ingredient {self.name} ({self.ingredient_id})'
+        return f'Ingredient ingredient_id={self.ingredient_id} name={self.name}'
 
 # get user data
 @app.route('/user/<int:user_id>')
@@ -121,6 +121,33 @@ def find_or_add_ingredient_db(ingredient_name):
 
     else:
         return find_ingredient.ingredient_id
+
+# get all items in pantry
+@app.route('/get_pantry_items/', methods=["POST"])
+def get_pantry_items():
+    current_user_id = 1
+
+    all_user_pantry_items = PantryIngredient.query.filter_by(user_id=current_user_id).all()
+
+    # create an object containg data for every ingredient
+    pantry_response = map(lambda item : ({
+        'ingredient_id': item.ingredient_id,
+        'name': get_ingredient_name_by_id(item.ingredient_id),
+        'quantity': item.quantity
+    }), all_user_pantry_items)
+
+    # format and return data
+    pantry_response = list(pantry_response)
+    return jsonify(pantry_response)
+
+# searches through Ingredient for ingredient name
+def get_ingredient_name_by_id(ingredient_id):
+    ingredient = Ingredient.query.filter_by(ingredient_id=ingredient_id).first()
+
+    if (ingredient is None): # in case we can't find ingredient
+        return 'none'
+    else:
+        return ingredient.name
 
 # get a user's pantry items data
 @app.route('/pantry/<int:user_id>')
