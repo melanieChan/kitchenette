@@ -39,8 +39,14 @@ const Pantry = () => {
   // adds a new item to the list of ingredients
   function addItem() {
     // invalid inputs
-    if (!newIngredientQuantity || !newIngredientInput || newIngredientInput <= 0) {
+    if (!newIngredientQuantity || !newIngredientInput || newIngredientQuantity <= 0) {
       alert('Please provide non empty valid inputs')
+      return
+    }
+
+    // if user already has item, don't add
+    if (pantryItems.reduce((alreadyHasItem, item) =>  alreadyHasItem || item.name == newIngredientInput, false)) {
+      alert('You already have this item. Please use the update button if you want to modify the quantity.')
       return
     }
 
