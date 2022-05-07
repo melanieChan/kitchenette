@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import '../Page.css';
 
 import Select from '../components/inputs/Select'
@@ -7,9 +7,13 @@ import IngredientCard from '../components/cards/IngredientCard'
 import { NumberField } from 'gestalt';
 
 import { addItemToPantry, getPantryItems, deletePantryItem } from '../api/provider';
+import { UserContext } from '../auth/UserContext'
 
 const Pantry = () => {
   document.title = "Pantry"
+
+  const { userData } = useContext(UserContext) // get user data
+  var { token } = userData ? userData : {token: 'token123'} // set a valid token for now
 
   const [newIngredientInput, setNewIngredientInput] = useState('')
   const [newIngredientQuantity, setNewIngredientQuantity] = useState(1)
@@ -19,7 +23,7 @@ const Pantry = () => {
   const quantityInputRef = useRef()
   useEffect(() => {
     // get pantry ingredient data from database
-    getPantryItems('token123')
+    getPantryItems(token)
       .then( (response) => {
         console.log(response);
 
@@ -56,7 +60,7 @@ const Pantry = () => {
     }
 
     // call API to store data
-    addItemToPantry('token123', newIngredientData) // pass in data through parameters
+    addItemToPantry(token, newIngredientData) // pass in data through parameters
       .then( (response) => {
         console.log(response);
 
@@ -74,7 +78,7 @@ const Pantry = () => {
 
   // delete item from list
   function deleteItem(itemToDelete) {
-    deletePantryItem('token123', itemToDelete)
+    deletePantryItem(token, itemToDelete)
       .then( (response) => {
         console.log(response);
 

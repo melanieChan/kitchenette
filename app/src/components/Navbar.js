@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../auth/UserContext'
 import './Navbar.css';
 
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const {userData, setUserData} = useContext(UserContext) // access user data
+
   let navigate = useNavigate() // used to change pages
 
   var currentPath = window.location.pathname; // suffix of current link url
@@ -36,8 +39,7 @@ const Navbar = () => {
               >{path.name}</p>
           )}
         </div>
-
-        <button className="button">Log in</button>
+        <button className="button">{userData ? userData.user.username : 'log in'}</button>
       </div>
 
       {/* this div has no real functionality, it is only to fix styling */}
