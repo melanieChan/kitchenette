@@ -85,22 +85,26 @@ def add_item_to_pantry():
     # check if user already has ingredient in their pantry
     exisiting_pantry_item = PantryIngredient.query.filter_by(ingredient_id=ingredient_id, user_id=current_user_id).first()
 
-    # in case user already has ingredient in their pantry, update the value
-    if exisiting_pantry_item is None:
+    new_ingredient_data = {
+        'ingredient_id': ingredient_id,
+        'name': ingredientNameInput,
+        'quantity': ingredientQuantityInput,
+    }
+
+    # update PantryIngredient table
+    if exisiting_pantry_item is None: # adds new PantryIngredient for the current user
         # store new
         new_ingredient = PantryIngredient(user_id=current_user_id,ingredient_id=ingredient_id, quantity=ingredientQuantityInput)
         db.session.add(new_ingredient)
         db.session.commit()
 
-        # let the frontend know that adding pantry item to db was successful
-        return user_input_data, 200
-    else:
+    else: # in case user already has ingredient in their pantry, update the value
         # update existing
         exisiting_pantry_item.quantity = ingredientQuantityInput
         db.session.commit()
-        return user_input_data, 200
 
-    return 'Failed to add to pantry', 400
+    # let the frontend know that adding pantry item to db was successful
+    return jsonify(new_ingredient_data), 200
 
 # will either get the ingredient_id of an ingredient already in db, or create a new entry for the ingredient
 def find_or_add_ingredient_db(ingredient_name):
@@ -149,6 +153,28 @@ def get_ingredient_name_by_id(ingredient_id):
         return 'none'
     else:
         return ingredient.name
+
+# deletes a PantryIngredient of the current user
+@app.route('/delete_pantry_item/', methods=["POST"])
+def delete_pantry_item():
+    current_user_id = 1
+
+    # get input
+    user_input_data = request.get_json()
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # get value of user inputs
+    delete_me_id = user_input_data['ingredient_id']
+
+    # find and delete from db
+    ingredient_from_db = PantryIngredient.query.filter_by(user_id=current_user_id, ingredient_id=delete_me_id).first()
+    db.session.delete(ingredient_from_db)
+    db.session.commit()
+
+    return jsonify({'success': True}), 200
 
 # get a user's pantry items data
 @app.route('/pantry/<int:user_id>')

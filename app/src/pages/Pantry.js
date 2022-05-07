@@ -6,7 +6,7 @@ import IngredientCard from '../components/cards/IngredientCard'
 
 import { NumberField } from 'gestalt';
 
-import { addItemToPantry, getPantryItems } from '../api/provider';
+import { addItemToPantry, getPantryItems, deletePantryItem } from '../api/provider';
 
 const Pantry = () => {
   document.title = "Pantry"
@@ -53,7 +53,7 @@ const Pantry = () => {
 
         // after data was stored, update UI
         let ingredientDataDisplay = {
-          ...newIngredientData,
+          ...response,
           classNames: 'newItem' // passed to display card for styling
         }
         // adds to beginning of list
@@ -65,7 +65,14 @@ const Pantry = () => {
 
   // delete item from list
   function deleteItem(itemToDelete) {
-    setPantryItems(pantryItems.filter(item => item.ingredient_id !== itemToDelete.ingredient_id))
+    deletePantryItem('token123', itemToDelete)
+      .then( (response) => {
+        console.log(response);
+
+        // update UI to remove card from list of displayed
+        setPantryItems(pantryItems.filter(item => item.ingredient_id !== itemToDelete.ingredient_id))
+      })
+      .catch(err => { console.log(err) });
   }
 
   return (

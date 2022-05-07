@@ -52,3 +52,29 @@ export const getPantryItems = (token) => {
     console.log("Fetch error: " + error);
   });
 }
+
+// removes an item from the user's pantry when the quantity falls to 0
+export const deletePantryItem = (token, ingredientToDelete) => {
+  return fetch(`http://localhost:5000/delete_pantry_item/`, {
+    method: "POST",
+    body: JSON.stringify({...ingredientToDelete, token: token}), // send data to delete
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      // console.log('d',data);
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}
