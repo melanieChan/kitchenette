@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IconButton } from 'gestalt';
 
 // A card showing details about an ingredient
-const IngredientCard = ({ingredient, classNames}) => {
+const IngredientCard = ({ingredient, classNames, onDelete}) => {
   const [quantity, setQuantity] = useState(0)
 
   useEffect(() => {
@@ -11,6 +11,11 @@ const IngredientCard = ({ingredient, classNames}) => {
   }, [ingredient])
 
   function changeQuantity(newQuantity) {
+    // delete item if it's all used up
+    if (newQuantity <= 0) {
+      onDelete(ingredient)
+    }
+
     setQuantity(newQuantity)
   }
 

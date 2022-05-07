@@ -63,6 +63,11 @@ const Pantry = () => {
       .catch(err => { console.log(err) });
   }
 
+  // delete item from list
+  function deleteItem(itemToDelete) {
+    setPantryItems(pantryItems.filter(item => item.ingredient_id !== itemToDelete.ingredient_id))
+  }
+
   return (
     <div id="content">
 
@@ -102,6 +107,7 @@ const Pantry = () => {
               key={item}
               ingredient={item}
               classNames={item.classNames}
+              onDelete={deleteItem}
               />
         )}
       </div>
