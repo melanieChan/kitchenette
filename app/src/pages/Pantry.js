@@ -12,7 +12,7 @@ const Pantry = () => {
   document.title = "Pantry"
 
   const [newIngredientInput, setNewIngredientInput] = useState('')
-  const [newIngredientQuantity, setNewIngredientQuantity] = useState(0)
+  const [newIngredientQuantity, setNewIngredientQuantity] = useState(1)
 
   const [pantryItems, setPantryItems] = useState(null);
 
@@ -39,7 +39,10 @@ const Pantry = () => {
   // adds a new item to the list of ingredients
   function addItem() {
     // invalid inputs
-    if (!newIngredientQuantity || !newIngredientInput) return
+    if (!newIngredientQuantity || !newIngredientInput || newIngredientInput <= 0) {
+      alert('Please provide non empty valid inputs')
+      return
+    }
 
     const newIngredientData = {
       name: newIngredientInput,
@@ -94,7 +97,12 @@ const Pantry = () => {
               id="quantity-input"
               ref={quantityInputRef}
               label="Quantity"
+              min={1}
               onChange={({ value }) => {
+                if (value <= 0) {
+                  alert('Please provide non empty valid inputs')
+                  return
+                }
                 setNewIngredientQuantity(value);
               }}
               value={newIngredientQuantity}
