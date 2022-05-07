@@ -97,6 +97,7 @@ def add_item_to_pantry():
     else:
         # update existing
         exisiting_pantry_item.quantity = ingredientQuantityInput
+        db.session.commit()
         return user_input_data, 200
 
     return 'Failed to add to pantry', 400
