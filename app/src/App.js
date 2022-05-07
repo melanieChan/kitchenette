@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import { UserContext } from './auth/UserContext'
+import PrivateRoute from './auth/PrivateRoute'
 
 import Authentication from './pages/Authentication'
 import Pantry from './pages/Pantry'
@@ -24,9 +25,14 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Authentication />} />
-            <Route path="pantry" element={<Pantry />} />
-            <Route path="search" element={<RecipeSearchPage />} />
-            <Route path="cookbook" element={<Cookbook />} />
+
+            {/* routes only accessible if user is authenticated */}
+            <Route element={<PrivateRoute/>}>
+              <Route path='pantry' element={<Pantry/>}/>
+              <Route path="search" element={<RecipeSearchPage />} />
+              <Route path="cookbook" element={<Cookbook />} />
+            </Route>
+
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>
