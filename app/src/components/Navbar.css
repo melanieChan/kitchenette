@@ -61,3 +61,29 @@
 .left-header > p {
   color: salmon;
 }
+
+#popover-user-btn {
+  z-index: 15;
+  margin-right: -30px;
+  margin-top: 10px;
+
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0px 0px 10px 5px #e7dbd1;
+}
+
+.logout-btn {
+  color: darksalmon;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: 1.1em;
+  border-radius: 10px;
+  transition: font-size .1s ease;
+}
+
+.logout-btn:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+  font-size: 1.2em;
+}

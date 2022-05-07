@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { UserContext } from '../auth/UserContext'
 import './Navbar.css';
 
+import { Popover, Layer } from 'gestalt';
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -39,7 +40,8 @@ const Navbar = () => {
               >{path.name}</p>
           )}
         </div>
-        <button className="button">{userData ? userData.user.username : 'log in'}</button>
+
+        <UserButton/>
       </div>
 
       {/* this div has no real functionality, it is only to fix styling */}
@@ -53,3 +55,40 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
+// shows username and logout option
+const UserButton = () => {
+  const {userData, setUserData} = useContext(UserContext) // access user data
+
+  const userBtnRef = useRef(null)
+  const [openPopover, setOpenPopover] = useState(false)
+
+  function logout() {
+    setUserData(null)
+    setOpenPopover(false)
+  }
+
+  if (!userData) return <></>
+
+  return (
+    <>
+      <button className="button"
+        ref={userBtnRef}
+        onClick={() => setOpenPopover(!openPopover) }
+        >{userData ? userData.user.username : 'log in'}</button>
+
+      {openPopover &&
+        <Popover
+          anchor={userBtnRef.current}
+          id="popover-user-btn"
+          idealDirection="down"
+          onDismiss={() => setOpenPopover(false) }
+          positionRelativeToAnchor={true}
+          size="lg"
+          >
+          <button className="logout-btn" onClick={logout}>logout</button>
+        </Popover>
+      }
+    </>
+  );
+}
