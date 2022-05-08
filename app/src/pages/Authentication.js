@@ -33,8 +33,8 @@ const Authentication = () => {
 
               <br/> {/* login and sign in buttons */}
               <div style={{display: 'flex', minWidth: '300px', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px'}}>
-                <button className="button" onClick={login}>login</button>
                 <button className="button">sign up</button>
+                <button className="button" onClick={login}>login</button>
               </div>
             </>
           }

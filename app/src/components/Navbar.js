@@ -78,16 +78,18 @@ const UserButton = () => {
         >{userData ? userData.user.username : 'log in'}</button>
 
       {openPopover &&
-        <Popover
-          anchor={userBtnRef.current}
-          id="popover-user-btn"
-          idealDirection="down"
-          onDismiss={() => setOpenPopover(false) }
-          positionRelativeToAnchor={true}
-          size="lg"
-          >
-          <button className="logout-btn" onClick={logout}>logout</button>
-        </Popover>
+        <Layer>
+          <Popover
+            anchor={userBtnRef.current}
+            id="popover-user-btn"
+            idealDirection="down"
+            onDismiss={() => setOpenPopover(false) }
+            positionRelativeToAnchor={false}
+            size="lg"
+            >
+            <button className="logout-btn" onClick={logout}>logout</button>
+          </Popover>
+        </Layer>
       }
     </>
   );

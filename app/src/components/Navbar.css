@@ -27,7 +27,8 @@
 
 #title:hover {
   cursor: pointer;
-  background-image: radial-gradient(ellipse, #ffe8db 0%, white 80%);
+  transform: scale(1.1);
+  transition: transform .1s ease;
 }
 
 
@@ -40,7 +41,7 @@
   cursor: pointer;
 
   transform: scale(1.2);
-  transition: transform .5s;
+  transition: transform .1s;
 }
 
 /* will be shown as a diabled page link */
