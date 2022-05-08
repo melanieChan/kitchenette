@@ -42,7 +42,7 @@ const Cookbook = () => {
         </div>
 
         {/* contains cookbook pages */}
-        <div style={{position: 'relative', minWidth: '600px'}}>
+        <div style={{position: 'relative', minWidth: '600px', marginLeft: '30px'}}>
           {/* top page */}
           <div className="flippable" ref={currentPageRef} key={pageNum}
             style={{position:'absolute', zIndex: 2}}>

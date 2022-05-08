@@ -10,10 +10,6 @@
     skew(0deg,-10deg); /* stretch out page along bottom-left to top-right diagonal */
 }
 
-.flip .section {
-  background: linear-gradient(to bottom right, #fff, #ccc);
-}
-
 /* large rectangular element */
 .page {
   display: flex;
@@ -22,6 +18,7 @@
 
   width: 500px;
   margin: 30px;
+  margin-left: 0;
   padding: 30px;
   background-color: whitesmoke;
 

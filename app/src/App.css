@@ -16,8 +16,8 @@ input, .button {
   font-size: 1em;
 }
 
-.coral-text {
-  color: coral;
+.salmon-text {
+  color: salmon;
 }
 
 .button {
@@ -89,4 +89,21 @@ input, .button {
 }
 .icon-button-container:hover button > div > div > svg {
   color: salmon;
+}
+
+.float-image {
+  animation: float 4s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  40% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

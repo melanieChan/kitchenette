@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../auth/UserContext'
 import '../Page.css';
-
+import image from '../styles/undraw_cooking.png'
 const Authentication = () => {
   document.title = "Welcome"
 
@@ -21,7 +21,7 @@ const Authentication = () => {
         <div style={{minWidth: '500px', height: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center',flexDirection: 'column'}}>
           { userData ?
             <> {/* show user info if they're logged in */}
-              <p>hello {userData.user.username}</p>
+              <h1>welcome, <br/>{userData.user.username}</h1>
             </> :
             <> {/* show log in prompt for users not logged in */}
               <p>Username</p>
@@ -42,8 +42,8 @@ const Authentication = () => {
 
         {/* right side */}
         <div style={{minWidth: '500px', height: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <h1 className="coral-text">Welcome</h1>
-          <p>find recipes</p>
+          <img className="float-image" src={image} width="500px"/>
+          <h2 className="salmon-text">organize your cooking</h2>
         </div>
       </div>
     </div>
