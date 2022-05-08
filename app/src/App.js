@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserContext } from './auth/UserContext'
 import PrivateRoute from './auth/PrivateRoute'
 
@@ -15,7 +15,14 @@ import 'gestalt/dist/gestalt.css';
 
 function App() {
   // info about user and their current session
-  const [userData, setUserData] = useState(null)
+  // if exists, get user data from local storage when page first loads or refreshes
+  // will either be data from last visit or null
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')))
+
+  useEffect(() => {
+    // save user data to local storage
+    window.localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData]);
 
   return (
     <>
