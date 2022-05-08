@@ -10,7 +10,7 @@ import Cookbook from './pages/Cookbook'
 
 import Navbar from './components/Navbar'
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import 'gestalt/dist/gestalt.css';
 
 function App() {
@@ -40,6 +40,8 @@ function App() {
               <Route path="cookbook" element={<Cookbook />} />
             </Route>
 
+            {/* redirect invalid paths back to auth page */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>

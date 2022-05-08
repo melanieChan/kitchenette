@@ -32,7 +32,7 @@ const Navbar = () => {
           <h1 id="title" onClick={() => changeRoute('/')}>Recipe App</h1>
 
           {/* horizontal row of tabs that user can click on to go to a different page */}
-          {paths.map(path =>
+          {userData && paths.map(path =>
             <p
               // if current path is the same as what this path links to, it will be disabled
               className={path.route === currentPath ? 'tab-current' : "tab-title"}

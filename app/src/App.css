@@ -21,7 +21,7 @@ input, .button {
 }
 
 .button {
-  background-color: coral;
+  background-color: salmon;
   color: white;
   border: none;
 
@@ -30,28 +30,30 @@ input, .button {
 
 .button:hover {
   transform: translate(0px, -8px);
-  box-shadow: 5px 6px 8px 2px lightgrey;
+  box-shadow: 5px 4px 10px 2px lightgray;
   cursor: pointer;
 }
 
 .input {
   color: darksalmon;
   border: 1px solid coral;
+  background-color: transparent;
 }
 
 .input:hover, .input:focus {
   /* orange border */
-  outline: 1px solid coral;
+  outline: 1px solid salmon;
+  box-shadow: 0px 0px 20px 10px peachpuff;
 }
 
 #combobox-controlled {
-  border:1px solid coral;
+  border:1px solid salmon;
 }
 
 #combobox-controlled:focus { /* library component */
-  outline: 1px solid coral;
-  border:1px solid coral;
-  box-shadow: 0 0 10px coral;
+  outline: 1px solid salmon;
+  border:1px solid salmon;
+  box-shadow: 0 0 10px salmon;
 }
 
 /* tagged combobox */
@@ -60,9 +62,9 @@ input, .button {
 /* alternate selector for tagged combobox */
 /* ,[role="combobox"][aria-owns="tags"] div:nth-child(2):first-of-type > div:first-child */
 {
-  outline: 1px solid coral;
-  border:1px solid coral;
-  box-shadow: 0 0 10px coral;
+  outline: 1px solid salmon;
+  border:1px solid salmon;
+  box-shadow: 0 0 10px salmon;
 }
 
 /* icon button */
@@ -71,7 +73,7 @@ input, .button {
 /* icon button that was recently selected */
 , .icon-button-container button:focus > div > div
 {
-  background-color: coral;
+  background-color: salmon;
 }
 .icon-button-container:hover button > div > div {
   background-color: black;
@@ -86,5 +88,5 @@ input, .button {
   color: white;
 }
 .icon-button-container:hover button > div > div > svg {
-  color: coral;
+  color: salmon;
 }
