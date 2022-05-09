@@ -78,3 +78,26 @@ export const deletePantryItem = (token, ingredientToDelete) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const searchRecipesByIngredients = (token, ingredientListQuery) => {
+  return fetch(`http://localhost:5000/search_by_ingredient_names/`, {
+    method: "POST",
+    body: JSON.stringify({ingredients: ingredientListQuery, token: token}), // send data to search
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    return response.json().then(function(data) {
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}

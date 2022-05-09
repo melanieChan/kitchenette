@@ -48,6 +48,26 @@ class Ingredient(db.Model):
     def __repr__(self):
         return f'Ingredient ingredient_id={self.ingredient_id} name={self.name}'
 
+# a relationship between an ingredient and a recipe
+class RecipeIngredient(db.Model):
+    recipe_ingred_id = db.Column(db.Integer, primary_key=True)
+    ingredient_id = db.Column(db.Integer) # ingredients can be used in multiple recipes
+    recipe_id = db.Column(db.Integer) # recipes can have multiple ingredients
+
+    def __repr__(self):
+        return f'RecipeIngredient( ingredient_id={self.ingredient_id} recipe_id={self.recipe_id} ({self.recipe_ingred_id}) )'
+
+class Recipe(db.Model):
+    recipe_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    cook_time = db.Column(db.Integer)
+    instructions = db.Column(db.Text)
+    description = db.Column(db.Text)
+    image = db.Column(db.Text)
+
+    def __repr__(self):
+        return f'Recipe name={self.name} recipe_id={self.recipe_id}'
+
 # get user data
 @app.route('/user/<int:user_id>')
 def get_user(user_id):
@@ -176,11 +196,55 @@ def delete_pantry_item():
 
     return jsonify({'success': True}), 200
 
-# get a user's pantry items data
-@app.route('/pantry/<int:user_id>')
-def index(user_id):
-    pantry_ingredients = [
-        {'name':'bananas', 'quantity': 10},
-        {'name':'apples', 'quantity': 5}
-        ]
-    return jsonify(pantry_ingredients)
+# searches through Ingredient, RecipeIngredient, and Recipe to find recipes given a list of input ingredient search queries
+@app.route('/search_by_ingredient_names/', methods=["POST"])
+def search_by_ingredient_names():
+    # get input
+    user_input_data = request.get_json()
+
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # get ingredient input
+    ingredient_name_queries = user_input_data['ingredients']
+
+    ingredient_ids = []
+    # find ingredient_ids that correspond to the ingredient names
+    for ingredient_name in ingredient_name_queries:
+        idNameRel = Ingredient.query.filter_by(name=ingredient_name).first()
+        if idNameRel is not None:
+            ingredient_ids.append(idNameRel.ingredient_id)
+
+    # get the recipe_ids to be used to find Recipes
+    recipe_ids = []
+    for ingredient_id in ingredient_ids:
+        recipes_id_of_ingred = list(map(lambda recipeIngredRel: recipeIngredRel.recipe_id, RecipeIngredient.query.filter_by(ingredient_id=ingredient_id).all()))
+        recipe_ids.extend(recipes_id_of_ingred)
+    recipe_ids = set(recipe_ids) # convert list to set to remove duplicates
+
+    # get recipes using recipe ids
+    recipes_result = [ convert_res_to_recipe_obj(Recipe.query.filter_by(recipe_id=recipe_id).first(), get_recipe_ingredients(recipe_id)) for recipe_id in recipe_ids]
+    # print(recipes_result)
+    return jsonify(recipes_result), 200
+
+# turns a db query response from querying Recipe into an object
+def convert_res_to_recipe_obj(queryResponse, ingredients):
+    return {
+        'recipe_id': queryResponse.recipe_id,
+        'name': queryResponse.name,
+        'cook_time': queryResponse.cook_time,
+        'instructions': queryResponse.instructions,
+        'image': queryResponse.image,
+        'ingredients': ingredients
+    }
+
+# gets a list of ingredient names for a given recipe using the recipe_id
+def get_recipe_ingredients(recipe_id):
+    # gets all ingredients that are used for the given recipe
+    ingredient_ids = db.session.query(RecipeIngredient.ingredient_id).filter_by(recipe_id=recipe_id).all() # list of tuples
+    ingredient_ids = [ing[0] for ing in ingredient_ids] # extract ingredient_id value from list of tuples
+
+    # get names of ingredient that corresponds to each ingredient_id
+    return [Ingredient.query.filter_by(ingredient_id=ingredient_id).first().name for ingredient_id in ingredient_ids]

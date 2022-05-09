@@ -46,3 +46,5 @@ db.session.delete(user_keras)
 User.query.all()
 
 # User table should have 1 entry now
+from app import db, RecipeIngredient, Ingredient, Recipe
+# r = db.select([Recipe.name, Recipe.recipe_id]).where(Recipe.cook_time==5)

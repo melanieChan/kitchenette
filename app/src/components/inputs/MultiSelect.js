@@ -9,9 +9,8 @@ import { ComboBox, Tag } from 'gestalt';
 
  code from Gestalt
 */
-export default function MultiSelect({label, placeholder}) {
+export default function MultiSelect({label, placeholder, selected, setSelected}) {
   const ref = useRef();
-  const [selected, setSelected] = useState([]); // items user has selected
   const [searchTerm, setSearchTerm] = useState(''); // new item name that user types
 
   const optionsList = [
