@@ -78,7 +78,6 @@
 /* card that shows one entry of data */
 .section {
   display: flex;
-  align-items:center;
   flex-direction: column;
 
   width: 300px;
@@ -93,4 +92,12 @@
 .section:hover {
   box-shadow: 4px 10px 30px 4px #d6c1af;
   transition: box-shadow .2s ease;
+}
+
+.ingredient-card {
+  align-items: center;
+}
+
+.recipe-card {
+  align-items: right;
 }
