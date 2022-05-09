@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect, useContext } from 'react';
 import '../Page.css';
 import './Cookbook.css';
 import RecipePaper from '../components/cards/RecipePaper'
 import MultiSelect from '../components/inputs/MultiSelect'
 
+import { getSavedRecipes } from '../api/provider';
+import { UserContext } from '../auth/UserContext'
+
 const Cookbook = () => {
   document.title = "Cookbook Recipes"
+
+  const { userData } = useContext(UserContext) // get user data
+  var { token } = userData ? userData : {token: 'token123'} // set a valid token for now
 
   const currentPageRef = useRef(null)
 
@@ -13,11 +19,15 @@ const Cookbook = () => {
   const [pageNum, setPageNum] = useState(0);
 
   useEffect(() => {
-    setRecipeSearchResults([
-      {name: 'recipe1'},
-      {name: 'recipe2'},
-      {name: 'recipe3'},
-    ])
+    // find recipes the user already saved
+    getSavedRecipes(token)
+      .then( (response) => {
+        console.log(response);
+
+        // after data received, update UI
+        setRecipeSearchResults(response)
+      })
+      .catch(err => { console.log(err) });
 
   }, [])
 

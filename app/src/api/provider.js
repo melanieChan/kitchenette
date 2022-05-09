@@ -127,3 +127,27 @@ export const saveRecipe = (token, recipeData) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const getSavedRecipes = (token) => {
+  return fetch(`http://localhost:5000/get_save_recipes/`, {
+    method: "POST",
+    body: JSON.stringify({token: token}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}

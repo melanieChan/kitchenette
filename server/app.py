@@ -287,3 +287,23 @@ def save_recipe():
     db.session.commit()
 
     return jsonify({'success': True, 'recipe_id': new_saved_recipe_id}), 200
+
+@app.route('/get_save_recipes/', methods=["POST"])
+def get_save_recipes():
+    current_user_id = 1
+
+    # get input
+    user_input_data = request.get_json()
+
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # find data
+    saved_recipes = SavedRecipe.query.filter_by(user_id=current_user_id).all()
+    recipe_ids = [ saved_recipe.recipe_id for saved_recipe in saved_recipes]
+
+    # go through each recipe_id, find the recipe object for that recipe_id
+    recipes_result = [ convert_res_to_recipe_obj(Recipe.query.filter_by(recipe_id=recipe_id).first(), get_recipe_ingredients(recipe_id)) for recipe_id in recipe_ids]
+    return jsonify(recipes_result), 200
