@@ -14,14 +14,6 @@ const RecipeSearchPage = () => {
   const [selected, setSelected] = useState([]); // items user has selected
   const [recipeSearchResults, setRecipeSearchResults] = useState(null);
 
-  useEffect(() => {
-    setRecipeSearchResults([
-      {name: 'recipe1', quantity: 5},
-      {name: 'recipe2', quantity: 6},
-      {name: 'recipe3', quantity: 3},
-    ])
-  }, [])
-
   // takes list of ingredients selected from MultiSelect input component and uses them as the search query
   function search() {
     // call api

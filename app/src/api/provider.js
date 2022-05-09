@@ -101,3 +101,29 @@ export const searchRecipesByIngredients = (token, ingredientListQuery) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const saveRecipe = (token, recipeData) => {
+  console.log(recipeData)
+  return fetch(`http://localhost:5000/save_recipe/`, {
+    method: "POST",
+    // send input data with token
+    body: JSON.stringify({recipeData: recipeData, token: token}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}

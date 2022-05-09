@@ -68,6 +68,14 @@ class Recipe(db.Model):
     def __repr__(self):
         return f'Recipe name={self.name} recipe_id={self.recipe_id}'
 
+class SavedRecipe(db.Model):
+    saved_recipe_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer) # user that saved the recipe
+    recipe_id = db.Column(db.Integer) # recipe that was saved
+
+    def __repr__(self):
+        return f'SavedRecipe user_id={self.user_id} recipe_id={self.recipe_id} ({self.saved_recipe_id})'
+
 # get user data
 @app.route('/user/<int:user_id>')
 def get_user(user_id):
@@ -248,3 +256,34 @@ def get_recipe_ingredients(recipe_id):
 
     # get names of ingredient that corresponds to each ingredient_id
     return [Ingredient.query.filter_by(ingredient_id=ingredient_id).first().name for ingredient_id in ingredient_ids]
+
+# saves a new recipe for a user, given a recipe_id and user_id
+@app.route('/save_recipe/', methods=["POST"])
+def save_recipe():
+    current_user_id = 1
+
+    # get input
+    user_input_data = request.get_json()
+
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # get ingredient input
+    recipe_to_save = user_input_data['recipeData']
+    print(recipe_to_save)
+    new_saved_recipe_id = recipe_to_save['recipe_id']
+
+    # make sure the user hasn't already saved it
+    find_recipe = SavedRecipe.query.filter_by(recipe_id=new_saved_recipe_id, user_id=current_user_id).first()
+    if find_recipe is not None:
+        print(find_recipe)
+        return jsonify({'success': False, 'msg': 'already saved this'}), 200
+
+    # create new object and save
+    new_saved_recipe = SavedRecipe(recipe_id=new_saved_recipe_id, user_id=current_user_id)
+    db.session.add(new_saved_recipe)
+    db.session.commit()
+
+    return jsonify({'success': True, 'recipe_id': new_saved_recipe_id}), 200
