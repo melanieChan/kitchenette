@@ -312,6 +312,7 @@ def get_save_recipes():
 def update_pantry_item_quantity():
     current_user_id = 1
 
+
     # get input
     user_input_data = request.get_json()
 
@@ -323,6 +324,15 @@ def update_pantry_item_quantity():
     ingredient_data = user_input_data['ingredient_data']
     print(ingredient_data)
     # update database
-    
 
-    return jsonify({'newQuantity': -10}), 200
+    #create new quantity variables
+    newQuantity = ingredient_data['new_quantity']
+    ingredient_id = ingredient_data['ingredient_id']
+
+    ingredient = PantryIngredient.query.filter_by(user_id=current_user_id, ingredient_id=ingredient_id).first()
+    ingredient.quantity = newQuantity
+
+    db.session.commit()
+
+
+    return jsonify({'newQuantity': newQuantity}), 200
