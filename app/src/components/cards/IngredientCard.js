@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { IconButton } from 'gestalt';
+
+import { updatePantryItemQuantity } from '../../api/provider';
+import { UserContext } from '../../auth/UserContext'
 
 // A card showing details about an ingredient
 const IngredientCard = ({ingredient, classNames, onDelete}) => {
+  const { userData } = useContext(UserContext) // get user data
+  var { token } = userData ? userData : {token: 'null'} // set a valid token for now
+
   const [quantity, setQuantity] = useState(0)
 
   useEffect(() => {
@@ -15,8 +21,19 @@ const IngredientCard = ({ingredient, classNames, onDelete}) => {
     if (newQuantity <= 0) {
       onDelete(ingredient)
     }
+    else {
+      // updates value stored in database
+      updatePantryItemQuantity(token, newQuantity)
+      .then( (response) => {
+        console.log(response);
 
-    setQuantity(newQuantity)
+        // show the new value
+        if (response.newQuantity) {
+          setQuantity(response.newQuantity)
+        }
+      })
+      .catch(err => { console.log(err) });
+    }
   }
 
   return (
