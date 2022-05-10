@@ -16,6 +16,27 @@ input, .button {
   font-size: 1em;
 }
 
+img {
+  max-width:100%;
+  max-height:100%;
+  width: auto;
+  height: auto;
+}
+
+.backup-image {
+  background-image: url('./styles/undraw_cooking.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.center-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .salmon-text {
   color: salmon;
 }

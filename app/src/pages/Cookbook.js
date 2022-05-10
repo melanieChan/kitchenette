@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useContext } from 'react';
 import '../Page.css';
 import './Cookbook.css';
+import defaultImage from '../styles/undraw_breakfast.png'
 import RecipePaper from '../components/cards/RecipePaper'
 import MultiSelect from '../components/inputs/MultiSelect'
 
@@ -36,6 +37,23 @@ const Cookbook = () => {
     // currentPageRef.current.classList.remove('flip')
   }
 
+  // display for the recipe's image
+  const Image = ({src}) => {
+    function isValidUrl(urlString) {
+      try {
+        let url = new URL(urlString);
+      } catch (_) {
+        return false;
+      }
+      return true;
+    }
+
+    if (!isValidUrl(src)) return (<></>);
+    return (
+      <img src={src} alt="" onError={(e) => e.target.src = defaultImage}/>
+    );
+  }
+
   return (
     <div id="content" className="page-content">
 
@@ -47,8 +65,9 @@ const Cookbook = () => {
           display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'
         }}>
 
-        <div style={{width: '30%', minWidth: '300px', backgroundColor: 'peachpuff'}}>
-          <p></p>
+        <div className="center-top" style={{width: '30%', minWidth: '300px'}} key={pageNum}>
+          {recipeSearchResults && recipeSearchResults.length > 0 &&
+            <Image src={recipeSearchResults[pageNum].image}/>}
         </div>
 
         {/* contains cookbook pages */}

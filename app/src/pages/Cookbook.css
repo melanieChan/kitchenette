@@ -17,7 +17,6 @@
   flex-direction: column;
 
   width: 500px;
-  margin: 30px;
   margin-left: 0;
   padding: 30px;
   background-color: whitesmoke;
@@ -39,7 +38,7 @@
 .flippable .page:first-child:before { /* cone shaped page fold at top right corner */
     content: '';
     position: absolute;
-    top: 20px; right: 43px;
+    top: -10px; right: 13px;
 
     /* cone */
     border-left: 45px solid white;
@@ -54,7 +53,7 @@
 .flippable .page:first-child:after { /* shadow under page fold */
     content: '';
     position: absolute;
-    top: 39px; right: 48px;
+    top: 9px; right: 18px;
 
     transform: rotate(135deg);
     background-color: lightgray; /* color shows through center of shadow */
