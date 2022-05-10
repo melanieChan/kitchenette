@@ -152,10 +152,10 @@ export const getSavedRecipes = (token) => {
   });
 }
 
-export const updatePantryItemQuantity = (token, newQuantity) => {
+export const updatePantryItemQuantity = (token, ingredientData) => {
   return fetch(`http://localhost:5000/update_pantry_item_quantity/`, {
     method: "POST",
-    body: JSON.stringify({new_quantity: newQuantity, token: token}),
+    body: JSON.stringify({ingredient_data: ingredientData, token: token}),
     cache: "no-cache",
     headers: new Headers({
       "content-type": "application/json"

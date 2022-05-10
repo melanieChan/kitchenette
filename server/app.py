@@ -320,8 +320,8 @@ def update_pantry_item_quantity():
     if user_token != 'token123':
         return 'Invalid token', 400
 
-    new_quantity = user_input_data['new_quantity']
-
+    ingredient_data = user_input_data['ingredient_data']
+    print(ingredient_data)
     # update database
     
 

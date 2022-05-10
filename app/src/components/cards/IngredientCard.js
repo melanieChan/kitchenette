@@ -23,7 +23,7 @@ const IngredientCard = ({ingredient, classNames, onDelete}) => {
     }
     else {
       // updates value stored in database
-      updatePantryItemQuantity(token, newQuantity)
+      updatePantryItemQuantity(token, {new_quantity: newQuantity, ingredient_id: ingredient.ingredient_id})
       .then( (response) => {
         console.log(response);
 
