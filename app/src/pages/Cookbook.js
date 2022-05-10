@@ -54,6 +54,10 @@ const Cookbook = () => {
     );
   }
 
+  function onClickUnsave(unsaved_recipe_id) {
+    setRecipeSearchResults(recipeSearchResults.filter(recipe => recipe.recipe_id !== unsaved_recipe_id))
+  }
+
   return (
     <div id="content" className="page-content">
 
@@ -76,7 +80,9 @@ const Cookbook = () => {
           <div className="flippable" ref={currentPageRef} key={pageNum}
             style={{position:'absolute', zIndex: 2}}>
             {recipeSearchResults && (
-              <RecipePaper recipe={recipeSearchResults[pageNum]}/>
+              <RecipePaper recipe={recipeSearchResults[pageNum]}
+                onClickUnsave={onClickUnsave}
+                />
             )}
           </div>
 

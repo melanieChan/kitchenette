@@ -5,7 +5,7 @@ import { cookRecipe } from '../../api/provider';
 import { UserContext } from '../../auth/UserContext'
 
 // A narrow rectangle showing details about a recipe
-const RecipePaper = ({recipe}) => {
+const RecipePaper = ({recipe, onClickUnsave}) => {
   const { userData } = useContext(UserContext) // get user data
   var { token } = userData ? userData : {token: 'null'} // set a valid token for now
 
@@ -15,6 +15,7 @@ const RecipePaper = ({recipe}) => {
   const [instructionsList, setInstructionsList] = useState(null)
 
   useLayoutEffect(() => {
+    if (!recipe) return;
     // turn list of ingredient names into list of ingredient objects containsing name and checked state
     setIngredients(recipe.ingredients.map(ingredientName => ({name: ingredientName, checked: false})))
 
@@ -33,6 +34,8 @@ const RecipePaper = ({recipe}) => {
     })
     .catch(err => { console.log(err) });
   }
+
+  if (!recipe) return;
 
   return (
     <div className="page recipe-card scroll" key={recipe.name}>
@@ -63,7 +66,7 @@ const RecipePaper = ({recipe}) => {
       <div className="center"> {/* buttons on bottom of paper */}
         <button className="button" onClick={onClickUseRecipe}>use recipe</button>
         <button className="button">buy ingredients</button>
-        <button className="button">unsave</button>
+        <button className="button" onClick={() => onClickUnsave(recipe.recipe_id)}>unsave</button>
       </div>
     </div>
     </div>
