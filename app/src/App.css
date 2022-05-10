@@ -31,9 +31,9 @@ img {
   min-height: 100%;
 }
 
-.center-top {
+.center {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 

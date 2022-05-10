@@ -5,6 +5,7 @@ import { Checkbox, Flex } from 'gestalt';
 const RecipePaper = ({recipe}) => {
   const [ingredients, setIngredients] = useState([])
 
+  // list of instruction objects: [{name: <string>, checked: <boolean> }, ...]
   const [instructionsList, setInstructionsList] = useState(null)
 
   useLayoutEffect(() => {
@@ -16,8 +17,11 @@ const RecipePaper = ({recipe}) => {
   }, [recipe])
 
   return (
-    <div className="page recipe-card" key={recipe.name}>
+    <div className="page recipe-card scroll" key={recipe.name}>
+    <div className="recipe-paper-content">
       <h1>{recipe.name}</h1>
+
+      {/* ingredient checklist */}
       <Flex direction="column" gap={2}>
         {ingredients.map((ingredient, index) =>
           <Checkbox
@@ -34,16 +38,16 @@ const RecipePaper = ({recipe}) => {
         )}
       </Flex>
 
-      <ol>
-        <p>Instructions</p>
+      <ol> {/* instructions list */}
         {instructionsList && instructionsList.map(step => <li>{step}</li>)}
       </ol>
 
-      <div>
+      <div className="center"> {/* buttons on bottom of paper */}
         <button className="button">use recipe</button>
         <button className="button">buy ingredients</button>
         <button className="button">unsave</button>
       </div>
+    </div>
     </div>
   );
 }

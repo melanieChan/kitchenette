@@ -10,6 +10,18 @@
   flex-direction: column;
 }
 
+.scroll {
+  overflow-y: scroll;
+  max-height: 400px;
+  direction: rtl;
+}
+
+.recipe-paper-content {
+  direction: ltr;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .content-head {
   display: flex;
   justify-content: center;

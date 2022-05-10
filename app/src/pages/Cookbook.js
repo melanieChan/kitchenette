@@ -65,7 +65,7 @@ const Cookbook = () => {
           display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'
         }}>
 
-        <div className="center-top" style={{width: '30%', minWidth: '300px'}} key={pageNum}>
+        <div className="center" style={{width: '30%', minWidth: '300px'}} key={pageNum}>
           {recipeSearchResults && recipeSearchResults.length > 0 &&
             <Image src={recipeSearchResults[pageNum].image}/>}
         </div>
