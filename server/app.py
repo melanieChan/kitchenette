@@ -336,3 +336,57 @@ def update_pantry_item_quantity():
 
 
     return jsonify({'newQuantity': newQuantity}), 200
+
+# will search through the PantryIngredient table to decrement the quantity of any ingredients used to cook the recipe
+# will also add or update the quantity of the recipe product to the user's pantry
+@app.route('/cook_recipe/', methods=["POST"])
+def cook_recipe():
+    current_user_id = 1
+
+    user_input_data = request.get_json() # get input
+
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # get input data
+    recipe_data = user_input_data['recipe_data']
+    ingredient_names = recipe_data['recipe_input']
+    recipe_name = recipe_data['recipe_output']
+
+    # find the ingredients in the user's pantry
+    for ingredient_name in ingredient_names:
+        # used to find the ingredient data needed for search
+        ingredient = get_ingredient_by_name(ingredient_name)
+        if ingredient is not None:
+            # search for ingredient in user's pantry
+            ingredient_id = ingredient.ingredient_id
+            pantry_ingredient = PantryIngredient.query.filter_by(user_id=current_user_id, ingredient_id=ingredient_id).first()
+            # if the user has this ingredient, decrement the quantity
+            if pantry_ingredient is not None:
+                newQuantity = pantry_ingredient.quantity - 1
+                # delete the item if it's used up
+                if newQuantity == 0:
+                    db.session.delete(pantry_ingredient)
+
+                else: # otherwise, update the value
+                    pantry_ingredient.quantity = newQuantity
+
+    # update the user's pantry with this new dish
+    cooked_food_id = find_or_add_ingredient_db(recipe_name)
+    existing_dish = PantryIngredient.query.filter_by(user_id=current_user_id, ingredient_id=cooked_food_id).first()
+    if existing_dish is None:
+        # add a new PantryIngredient of this recipe product to the user's pantry
+        cooked_recipe = PantryIngredient(user_id=current_user_id, ingredient_id=cooked_food_id, quantity=1)
+        db.session.add(cooked_recipe)
+    else:
+        existing_dish.quantity = existing_dish.quantity + 1
+
+    db.session.commit()
+    return jsonify({'success': True}), 200
+
+# finds a row in the Ingredient table that has the given name
+def get_ingredient_by_name(ingredient_name):
+    ingredient = Ingredient.query.filter_by(name=ingredient_name).first()
+    return ingredient

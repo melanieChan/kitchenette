@@ -176,3 +176,28 @@ export const updatePantryItemQuantity = (token, ingredientData) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const cookRecipe = (token, recipeData) => {
+  return fetch(`http://localhost:5000/cook_recipe/`, {
+    method: "POST",
+    body: JSON.stringify({recipe_data: recipeData, token: token}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      console.log('d',data);
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}
