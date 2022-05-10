@@ -5,7 +5,7 @@ import defaultImage from '../styles/undraw_breakfast.png'
 import RecipePaper from '../components/cards/RecipePaper'
 import MultiSelect from '../components/inputs/MultiSelect'
 
-import { getSavedRecipes } from '../api/provider';
+import { getSavedRecipes, unsaveRecipe } from '../api/provider';
 import { UserContext } from '../auth/UserContext'
 
 const Cookbook = () => {
@@ -55,7 +55,16 @@ const Cookbook = () => {
   }
 
   function onClickUnsave(unsaved_recipe_id) {
-    setRecipeSearchResults(recipeSearchResults.filter(recipe => recipe.recipe_id !== unsaved_recipe_id))
+    unsaveRecipe(token, unsaved_recipe_id)
+      .then( (response) => {
+        console.log(response);
+
+        // update UI to remove recipe from displayed list
+        alert('Unsaved. The update will be applied in the next page load.');
+        // turnPage()
+        // setRecipeSearchResults(recipeSearchResults.filter(recipe => recipe.recipe_id !== unsaved_recipe_id))
+      })
+      .catch(err => { console.log(err) });
   }
 
   return (
@@ -70,8 +79,8 @@ const Cookbook = () => {
         }}>
 
         <div className="center" style={{width: '30%', minWidth: '300px'}} key={pageNum}>
-          {recipeSearchResults && recipeSearchResults.length > 0 &&
-            <Image src={recipeSearchResults[pageNum].image}/>}
+            {recipeSearchResults && recipeSearchResults.length > 0 && pageNum >= 0 &&
+            <Image src={recipeSearchResults && recipeSearchResults[pageNum] && recipeSearchResults[pageNum].image}/>}
         </div>
 
         {/* contains cookbook pages */}

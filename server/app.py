@@ -390,3 +390,24 @@ def cook_recipe():
 def get_ingredient_by_name(ingredient_name):
     ingredient = Ingredient.query.filter_by(name=ingredient_name).first()
     return ingredient
+
+
+@app.route('/unsave_recipe/', methods=["POST"])
+def unsave_recipe():
+    current_user_id = 1
+    user_input_data = request.get_json() # get input
+
+    # check token
+    user_token = user_input_data['token']
+    if user_token != 'token123':
+        return 'Invalid token', 400
+
+    # get input data
+    unsave_recipe_id = user_input_data['recipe_id']
+
+    # find and delete the relationship
+    unsave_recipe = SavedRecipe.query.filter_by(user_id=current_user_id, recipe_id=unsave_recipe_id).first()
+    db.session.delete(unsave_recipe)
+
+    db.session.commit()
+    return jsonify({'success': True}), 200

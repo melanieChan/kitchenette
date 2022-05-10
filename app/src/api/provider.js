@@ -201,3 +201,27 @@ export const cookRecipe = (token, recipeData) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const unsaveRecipe = (token, recipe_id) => {
+  return fetch(`http://localhost:5000/unsave_recipe/`, {
+    method: "POST",
+    body: JSON.stringify({recipe_id: recipe_id, token: token}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}
