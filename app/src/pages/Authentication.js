@@ -3,7 +3,7 @@ import { UserContext } from '../auth/UserContext'
 import '../Page.css';
 import image from '../styles/undraw_cooking.png'
 const Authentication = () => {
-  document.title = "Welcome"
+  document.title = "Kitchenette"
 
   const {userData, setUserData} = useContext(UserContext) // access user data
 
