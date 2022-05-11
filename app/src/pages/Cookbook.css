@@ -4,13 +4,13 @@
   transform-style: preserve-3D;
 }
 
-.flip {
+.flip { /* applied to recipe page when it is being flipped */
   transform:
     rotateY(-90deg) /* turn page orientation */
     skew(0deg,-10deg); /* stretch out page along bottom-left to top-right diagonal */
 }
 
-/* large rectangular element */
+/* a recipe page in the cookbook */
 .page {
   display: flex;
   align-items:center;
@@ -20,6 +20,7 @@
   margin-left: 0;
   padding: 30px;
   background-color: whitesmoke;
+  border-radius: 10px 10px 10px 10px;
 
   box-shadow: 4px 6px 20px 5px #e7dbd1;
 }
@@ -32,7 +33,7 @@
 .flippable .page:first-child {
   /* cut off top right corner */
   /* top-left | top-right | bottom-right | bottom-left */
-  border-radius: 0px 63px 0 0px;
+  border-radius: 10px 63px 10px 10px;
 }
 
 .flippable .page:first-child:before { /* cone shaped page fold at top right corner */

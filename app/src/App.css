@@ -21,6 +21,7 @@ img {
   max-height:100%;
   width: auto;
   height: auto;
+  border-radius: 30px;
 }
 
 .backup-image {
