@@ -243,7 +243,8 @@ def convert_res_to_recipe_obj(queryResponse, ingredients):
         'recipe_id': queryResponse.recipe_id,
         'name': queryResponse.name,
         'cook_time': queryResponse.cook_time,
-        'instructions': queryResponse.instructions,
+        # process instructions string to into list by removing newline characters and string separators
+        'instructions': queryResponse.instructions.replace('\n','').split("\", \""),
         'image': queryResponse.image,
         'ingredients': ingredients
     }

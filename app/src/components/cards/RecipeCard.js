@@ -11,10 +11,7 @@ const RecipeCard = ({recipe}) => {
   const [instructionsList, setInstructionsList] = useState(null) // list of strings representing list of instructions
 
   useEffect(() => {
-    // process instructions list
-    // remove these 2 characters that may surround some words: \"
-    // turn into array of steps
-    setInstructionsList(recipe.instructions.replace('\\"','').split("\", \""))
+    setInstructionsList(recipe.instructions)
   }, [recipe])
 
   // ran after user clicks save button

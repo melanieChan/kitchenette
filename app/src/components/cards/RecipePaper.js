@@ -19,8 +19,7 @@ const RecipePaper = ({recipe, onClickUnsave}) => {
     // turn list of ingredient names into list of ingredient objects containsing name and checked state
     setIngredients(recipe.ingredients.map(ingredientName => ({name: ingredientName, checked: false})))
 
-    // process instructions as string into list
-    setInstructionsList(recipe.instructions.replace('\\"','').split("\", \""))
+    setInstructionsList(recipe.instructions)
   }, [recipe])
 
   function onClickUseRecipe() {
