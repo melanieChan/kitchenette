@@ -21,6 +21,7 @@ In the one terminal window:
 
 In another terminal window:
 - `cd` into the project directory
-- `pipenv shell` 
+- `cd server` 
+- `pipenv shell`
 - `export FLASK_APP=app`
 - `flask run`
