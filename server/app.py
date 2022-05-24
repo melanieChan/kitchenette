@@ -5,6 +5,7 @@ from werkzeug.exceptions import abort
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+from flask_utils import get_db_path
 
 # pipenv shell
 # export FLASK_ENV=development
@@ -18,7 +19,7 @@ local_path = os.path.abspath(os.path.dirname(__file__)) # finds project director
 
 # database
 app.config['SQLALCHEMY_DATABASE_URI'] =\
-        'sqlite:///' + os.path.join(local_path, 'database.db')
+        'sqlite:///' + get_db_path()
 db = SQLAlchemy(app)
 
 # each User is an object

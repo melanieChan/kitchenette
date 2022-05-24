@@ -7,3 +7,5 @@
 
 # run server and react frontend simultaneously
 (trap 'kill 0' SIGINT; (cd ../app && npm start) & pipenv run start)
+
+# npx kill-port 3000 5000
