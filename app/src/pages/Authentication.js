@@ -15,10 +15,10 @@ const Authentication = () => {
   }
 
   return (
-    <div id="content" className="page-content">
-      <div style={{display: 'flex', height: '100vh', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+    <div className="content">
+       <div style={{display: 'flex', height: '100%', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', textAlign: 'center'}}>
         {/* left side */}
-        <div style={{minWidth: '500px', height: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center',flexDirection: 'column'}}>
+        <div style={{minWidth: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
           { userData ?
             <> {/* show user info if they're logged in */}
               <h1>welcome, <br/>{userData.user.username}</h1>
@@ -41,8 +41,8 @@ const Authentication = () => {
         </div>
 
         {/* right side */}
-        <div style={{minWidth: '500px', height: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <img className="float-image" src={image} width="500px"/>
+        <div style={{ height: '80%', width: '40%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <img className="float-image" src={image} />
           <h2 className="salmon-text">organize your cooking</h2>
         </div>
       </div>

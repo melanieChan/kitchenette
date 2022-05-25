@@ -1,8 +1,9 @@
-#content {
-  min-height: 100vh;
+.content {
   min-width: 100vw;
-  position:sticky;
   background-image: linear-gradient(to bottom right, whitesmoke, peachpuff);
+
+  flex-grow: 1;
+  overflow-y: scroll;
 }
 
 .page-content { /* body of cookbook page */

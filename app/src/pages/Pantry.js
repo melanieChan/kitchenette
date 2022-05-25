@@ -89,7 +89,7 @@ const Pantry = () => {
   }
 
   return (
-    <div id="content">
+    <div className="content">
 
       {/* section to add item */}
       <div className="content-head">

@@ -43,13 +43,6 @@ const Navbar = () => {
 
         <UserButton/>
       </div>
-
-      {/* this div has no real functionality, it is only to fix styling */}
-      <div className="header">
-        <div className="left-header">
-          <h1 id="title">X</h1>
-        </div>
-      </div>
     </>
   );
 }

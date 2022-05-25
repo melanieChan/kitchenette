@@ -25,7 +25,7 @@ function App() {
   }, [userData]);
 
   return (
-    <>
+    <div className="App">
       <BrowserRouter>
         <UserContext.Provider value={{userData, setUserData}}>
           <Navbar />
@@ -45,7 +45,7 @@ function App() {
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

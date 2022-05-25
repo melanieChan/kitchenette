@@ -79,7 +79,7 @@ const Cookbook = () => {
   }
 
   return (
-    <div id="content" className="page-content">
+    <div className="content page-content">
 
       {/* contains cookbook and its button */}
       <div style={{
@@ -95,7 +95,7 @@ const Cookbook = () => {
             <Image src={recipeSearchResults[pageNum] && recipeSearchResults[pageNum].image}/>
         </div>}
 
-        <div style={{position: 'relative', minWidth: '600px', marginLeft: '30px'}} key={Math.random()}>
+        <div className="center" style={{position: 'relative', minWidth: '600px', marginLeft: '30px'}} key={Math.random()}>
         {recipeSearchResults.length > 1 && pageNum >= 0 ?
           <> {/* stack of cookbook pages */}
             {/* top page */}

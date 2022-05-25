@@ -1,8 +1,6 @@
 body {
   padding: 0;
   margin: 0;
-
-  position: relative;
 }
 
 h1, p {
@@ -19,9 +17,16 @@ input, .button {
 img {
   max-width:100%;
   max-height:100%;
-  width: auto;
-  height: auto;
+  /* width: auto;
+  height: auto; */
   border-radius: 30px;
+}
+
+.App { /* app content, including navbar and page content */
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
 }
 
 .backup-image {
