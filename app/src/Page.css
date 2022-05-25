@@ -114,3 +114,8 @@
 .recipe-card {
   align-items: right;
 }
+
+.toggleable-instructions-title:hover { /* toggleable label of recipe instructions on recipe card */
+  cursor: pointer;
+  font-weight: bold;
+}

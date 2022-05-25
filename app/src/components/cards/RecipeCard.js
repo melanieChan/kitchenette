@@ -9,6 +9,7 @@ const RecipeCard = ({recipe}) => {
   var { token } = userData ? userData : {token: 'null'} // set a valid token for now
 
   const [instructionsList, setInstructionsList] = useState(null) // list of strings representing list of instructions
+  const [showInstructions, setShowInstructions] = useState(false)
 
   useEffect(() => {
     setInstructionsList(recipe.instructions)
@@ -34,16 +35,28 @@ const RecipeCard = ({recipe}) => {
     <div className="section recipe-card" key={recipe.name}>
       <h1>{recipe.name}</h1>
 
+      <p>Ingredients</p>
       <ul> {/* ingredient list */}
-        <p>Ingredients</p>
         {recipe.ingredients &&
           recipe.ingredients.map(ingredient => <li>{ingredient}</li>)
         }
       </ul>
 
+      {/* toggleable instructions list */}
+      <p onClick={() => setShowInstructions(prev => !prev)}
+        className="toggleable-instructions-title">
+        Instructions
+      </p>
       <ol>
-        <p>Instructions</p>
-        {instructionsList && instructionsList.map(step => <li>{step}</li>)}
+      {showInstructions ?
+        <>
+          {/* complete list of instructions */
+            instructionsList && instructionsList.map(step => <li>{step}</li>)
+          }
+        </> :
+        // preview of first instruction step
+        <li>{`${instructionsList && instructionsList[0].substring(0,20)} . . .`}</li>
+      } 
       </ol>
 
       <div>

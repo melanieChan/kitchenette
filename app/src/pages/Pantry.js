@@ -3,6 +3,7 @@ import '../Page.css';
 
 import Select from '../components/inputs/Select'
 import IngredientCard from '../components/cards/IngredientCard'
+import pantryImg from '../styles/undraw_pantry.svg'
 
 import { NumberField } from 'gestalt';
 
@@ -94,6 +95,8 @@ const Pantry = () => {
       {/* section to add item */}
       <div className="content-head">
         <div className="searchbar-section">
+          <img src={pantryImg} width="200" height="150" alt=""/>
+
           <p>Enter an item to add</p>
           <div style={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', minWidth: '500px'}}>
             {/* input field */}

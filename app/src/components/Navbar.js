@@ -3,7 +3,7 @@ import { UserContext } from '../auth/UserContext'
 import './Navbar.css';
 
 import { Popover, Layer } from 'gestalt';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
   const {userData, setUserData} = useContext(UserContext) // access user data
@@ -29,15 +29,17 @@ const Navbar = () => {
     <>
       <div className="header overlay">
         <div className="left-header">
-          <h1 id="title" onClick={() => changeRoute('/')}>Kitchenette</h1>
+        <Link to="/">
+          <h1 id="title">Kitchenette</h1>
+        </Link>
 
           {/* horizontal row of tabs that user can click on to go to a different page */}
           {userData && paths.map(path =>
-            <p
-              // if current path is the same as what this path links to, it will be disabled
+            <Link
               className={path.route === currentPath ? 'tab-current' : "tab-title"}
-              onClick={() => changeRoute(path.route)}
-              >{path.name}</p>
+              to={path.route}>
+                {path.name}
+            </Link>
           )}
         </div>
 

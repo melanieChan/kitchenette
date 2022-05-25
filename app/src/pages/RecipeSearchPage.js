@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../Page.css';
 import RecipeCard from '../components/cards/RecipeCard'
 import MultiSelect from '../components/inputs/MultiSelect'
+import searchingImg from '../styles/undraw_researching.svg'
 
 import { searchRecipesByIngredients } from '../api/provider';
 import { UserContext } from '../auth/UserContext'
@@ -33,6 +34,8 @@ const RecipeSearchPage = () => {
       {/* section to add item */}
       <div className="content-head">
         <div className="searchbar-section">
+          <img src={searchingImg} width="150" height="150" alt="" />
+
           <p>Enter ingredients to search</p>
           <div>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', minWidth: '500px'}}>

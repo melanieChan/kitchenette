@@ -33,6 +33,18 @@
   transition: transform .1s ease;
 }
 
+.header a { /* links on navbar */
+  text-decoration: none;
+}
+
+.header a:focus, .header a:active { /* removes highlight when link is selected */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 /* clickable page link */
 .tab-title {
@@ -63,7 +75,7 @@
   width: 600px;
 }
 
-.left-header > p {
+.left-header a {
   color: salmon;
 }
 
