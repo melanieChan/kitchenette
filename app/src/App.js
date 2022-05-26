@@ -8,7 +8,7 @@ import Pantry from './pages/Pantry'
 import RecipeSearchPage from './pages/RecipeSearchPage'
 import Cookbook from './pages/Cookbook'
 
-import Navbar from './components/Navbar'
+import Navbar from './components/navigation/Navbar'
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import 'gestalt/dist/gestalt.css';
