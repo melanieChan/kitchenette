@@ -16,7 +16,10 @@ export default function KitchenetteButton({displayLabel, onClick, toastData = nu
   return (
     <>
       {// toast shows after button click
-        showToast && <Toast toastData={toastData}/>}
+        <Toast toastData={toastData} 
+          showToast={showToast}
+          onClickHideToast={() => setShowToast(false)}
+          />}
 
       <button className="button" onClick={handleButtonClick}>{displayLabel}</button>
     </>

@@ -1,20 +1,15 @@
 import { useState, useEffect } from "react";
-import { Box, Layer, Toast } from "gestalt";
+import { Box, Layer, Button, Toast } from "gestalt";
 
-export default function ToastOnSumbit({ toastData: { TextElement, ButtonElement } }) {
-  const [showToast, setShowToast] = useState(false)
-
-  useEffect(() => {
-    setShowToast(true)
-  }, [TextElement])
-
-  function onClickHideToast() {
-    setShowToast(false)
-  }
+export default function ToastOnSumbit({
+  toastData: { TextElement, ButtonElement = null}, // toast content
+  showToast,
+  onClickHideToast // called when Toast's button is clicked
+}) {
 
   return (
     <>
-      {showToast && (
+      {showToast && TextElement && (
         <Layer>
           <Box
             dangerouslySetInlineStyle={{
@@ -28,7 +23,7 @@ export default function ToastOnSumbit({ toastData: { TextElement, ButtonElement 
             position="fixed"
           >
             <Toast
-              button={<ButtonElement onClick={onClickHideToast}/>}
+              button={<Button text="Ok" onClick={onClickHideToast} />}
               text={TextElement}
             />
           </Box>

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from 'gestalt'
 
 /* toast data for notifying the user after cooking a recipe,
   linking to the pantry page where the updated ingredients can be seen,
@@ -17,7 +16,5 @@ export const cookedRecipeToastData = () => {
         .
       </div>;
 
-  const ButtonElement = ({onClick}) => {return (<Button text="Ok" onClick={onClick} />)}
-
-  return {TextElement, ButtonElement};
+  return {TextElement};
 }
