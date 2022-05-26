@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import '../Page.css';
+import pantryImg from '../styles/undraw_pantry.svg'
 
 import Select from '../components/inputs/Select'
 import IngredientCard from '../components/cards/IngredientCard'
-import pantryImg from '../styles/undraw_pantry.svg'
+import Modal from '../components/feedback/Modal'
 
 import { NumberField } from 'gestalt';
 
@@ -21,7 +22,11 @@ const Pantry = () => {
 
   const [pantryItems, setPantryItems] = useState(null);
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState(null);
+
   const quantityInputRef = useRef()
+
   useEffect(() => {
     // get pantry ingredient data from database
     getPantryItems(token)
@@ -45,13 +50,13 @@ const Pantry = () => {
   function addItem() {
     // invalid inputs
     if (!newIngredientQuantity || !newIngredientInput || newIngredientQuantity <= 0) {
-      alert('Please provide non empty valid inputs')
+      openModal('Only nonempty and nonzero positive quantity inputs are valid')
       return
     }
 
     // if user already has item, don't add
     if (pantryItems.reduce((alreadyHasItem, item) =>  alreadyHasItem || item.name == newIngredientInput, false)) {
-      alert('You already have this item. Please use the update button if you want to modify the quantity.')
+      openModal('You already have this item. Please use the update buttons if you want to modify the quantity.')
       return
     }
 
@@ -89,6 +94,18 @@ const Pantry = () => {
       .catch(err => { console.log(err) });
   }
 
+  // set modal content and visibility
+  function openModal(message) {
+    setModalMessage(message)
+    setShowModal(true)
+  }
+
+  // reset and hide modal 
+  function closeModal() {
+    setModalMessage(null)
+    setShowModal(false)
+  }
+
   return (
     <div className="content">
 
@@ -113,7 +130,7 @@ const Pantry = () => {
               min={1}
               onChange={({ value }) => {
                 if (value <= 0) {
-                  alert('Please provide non empty valid inputs')
+                  openModal('Only nonnegative and nonzero quantities are accepted')
                   return
                 }
                 setNewIngredientQuantity(value);
@@ -140,6 +157,9 @@ const Pantry = () => {
         )}
       </div>
 
+      {/* popup for error messages */}
+      <Modal showModal={showModal} onDismissCloseModal={closeModal}
+        messageToUser={modalMessage}/>
     </div>
   );
 }
