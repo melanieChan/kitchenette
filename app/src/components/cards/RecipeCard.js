@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 
+import { savedRecipeToastData } from '../feedback/toastsData'
+
 import { saveRecipe } from '../../api/provider';
 import { UserContext } from '../../auth/UserContext'
 
 // A card showing details about a recipe
-const RecipeCard = ({recipe}) => {
+const RecipeCard = ({recipe, toast}) => {
   const { userData } = useContext(UserContext) // get user data
   var { token } = userData ? userData : {token: 'null'} // set a valid token for now
 
@@ -23,9 +25,9 @@ const RecipeCard = ({recipe}) => {
 
         // let the user know that it was saved
         if (response.success)
-          alert('recipe saved')
+          toast(savedRecipeToastData(true))
         else {
-          alert('already saved')
+          toast(savedRecipeToastData(false))
         }
       })
       .catch(err => { console.log(err) });
@@ -60,7 +62,7 @@ const RecipeCard = ({recipe}) => {
       </ol>
 
       <div>
-        <button className="button" onClick={saveRecipeToDB}>save</button>
+        <button className="button" onClick={saveRecipeToDB}>Save</button>
       </div>
     </div>
   );

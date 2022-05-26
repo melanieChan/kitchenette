@@ -18,3 +18,18 @@ export const cookedRecipeToastData = () => {
 
   return {TextElement};
 }
+
+// toast data for user action of saving a recipe from one of the search results
+export const savedRecipeToastData = (isUniqueAddition) => {
+  const TextElement =
+      <div style={{textAlign: 'center'}}>
+        {isUniqueAddition ?
+          <>Recipe Saved in{' '}
+            <b><Link to='/cookbook'>Cookbook</Link></b>
+          </>
+        : <>Recipe Already Saved</>
+        }
+      </div>;
+
+  return {TextElement};
+}

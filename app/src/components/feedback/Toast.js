@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Layer, Button, Toast } from "gestalt";
 
 export default function ToastOnSumbit({
-  toastData: { TextElement, ButtonElement = null}, // toast content
+  toastData: { TextElement }, // toast content
   showToast,
   onClickHideToast // called when Toast's button is clicked
 }) {

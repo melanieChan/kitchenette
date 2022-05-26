@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../Page.css';
+import searchingImg from '../styles/undraw_researching.svg'
+
 import RecipeCard from '../components/cards/RecipeCard'
 import MultiSelect from '../components/inputs/MultiSelect'
-import searchingImg from '../styles/undraw_researching.svg'
+import Toast from '../components/feedback/Toast'
 
 import { searchRecipesByIngredients } from '../api/provider';
 import { UserContext } from '../auth/UserContext'
@@ -15,6 +17,9 @@ const RecipeSearchPage = () => {
   const [selected, setSelected] = useState([]); // items user has selected
   const [recipeSearchResults, setRecipeSearchResults] = useState(null);
 
+  const [showToast, setShowToast] = useState(false)
+  const [toastData, setToastData] = useState(null)
+
   // takes list of ingredients selected from MultiSelect input component and uses them as the search query
   function search() {
     // call api
@@ -26,6 +31,18 @@ const RecipeSearchPage = () => {
         setRecipeSearchResults(response)
       })
       .catch(err => { console.log(err) });
+  }
+
+  // sets toast content and makes it visible to user
+  function toast(toastDataFromRecipeCard) {
+    setToastData(toastDataFromRecipeCard)
+    setShowToast(true)
+  }
+
+  // hides toast from view and resets its content
+  function onClickHideToast() {
+    setToastData(null)
+    setShowToast(false)
   }
 
   return (
@@ -57,9 +74,18 @@ const RecipeSearchPage = () => {
       <div className="list">
         {recipeSearchResults &&
           recipeSearchResults.map(item =>
-            <RecipeCard recipe={item}/>
+            <RecipeCard recipe={item}
+              toast={toast}/>
         )}
       </div>
+
+      {// message to user after an action
+        toastData &&
+        <Toast
+          toastData={toastData}
+          showToast={showToast}
+          onClickHideToast={() => setShowToast(false)}
+        />}
 
     </div>
   );
