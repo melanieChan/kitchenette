@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
 import { Checkbox, Flex } from 'gestalt';
 
+import KitchenetteButton from '../inputs/KitchenetteButton'
+import { cookedRecipeToastData } from '../feedback/toastsData'
+
 import { cookRecipe } from '../../api/provider';
 import { UserContext } from '../../auth/UserContext'
 
@@ -23,13 +26,10 @@ const RecipePaper = ({recipe, onClickUnsave}) => {
   }, [recipe])
 
   function onClickUseRecipe() {
-    cookRecipe(token, {recipe_input: recipe.ingredients, recipe_output: recipe.name})
+    return cookRecipe(token, {recipe_input: recipe.ingredients, recipe_output: recipe.name})
     .then( (response) => {
       console.log(response);
-
-      // let the user know that it was used
-      if (response.success)
-        alert('Recipe used. Any pantry ingredients used for this recipe have been decremented. A serving of this recipe has also been added to your pantry.')
+      return response.success
     })
     .catch(err => { console.log(err) });
   }
@@ -63,8 +63,9 @@ const RecipePaper = ({recipe, onClickUnsave}) => {
       </ol>
 
       <div className="center"> {/* buttons on bottom of paper */}
-        <button className="button" onClick={onClickUseRecipe}>use recipe</button>
-        <button className="button">buy ingredients</button>
+        <KitchenetteButton displayLabel="use recipe" onClick={onClickUseRecipe}
+          toastData={cookedRecipeToastData()}
+          />
         <button className="button" onClick={() => onClickUnsave(recipe.recipe_id)}>unsave</button>
       </div>
     </div>
