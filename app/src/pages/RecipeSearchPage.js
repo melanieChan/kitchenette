@@ -5,6 +5,7 @@ import searchingImg from '../styles/undraw_researching.svg'
 import RecipeCard from '../components/cards/RecipeCard'
 import MultiSelect from '../components/inputs/MultiSelect'
 import Toast from '../components/feedback/Toast'
+import Modal from '../components/feedback/Modal'
 
 import { searchRecipesByIngredients } from '../api/provider';
 import { UserContext } from '../auth/UserContext'
@@ -20,8 +21,17 @@ const RecipeSearchPage = () => {
   const [showToast, setShowToast] = useState(false)
   const [toastData, setToastData] = useState(null)
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState(null);
+
   // takes list of ingredients selected from MultiSelect input component and uses them as the search query
   function search() {
+    // input check
+    if (selected.length == 0) {
+      openModal('Only nonempty inputs are valid')
+      return
+    }
+
     // call api
     searchRecipesByIngredients(token, selected)
       .then((response) => {
@@ -43,6 +53,18 @@ const RecipeSearchPage = () => {
   function onClickHideToast() {
     setToastData(null)
     setShowToast(false)
+  }
+
+  // set modal content and visibility
+  function openModal(message) {
+    setModalMessage(message)
+    setShowModal(true)
+  }
+
+  // reset and hide modal
+  function closeModal() {
+    setModalMessage(null)
+    setShowModal(false)
   }
 
   return (
@@ -73,10 +95,18 @@ const RecipeSearchPage = () => {
       {/* list of items */}
       <div className="list">
         {recipeSearchResults &&
-          recipeSearchResults.map(item =>
-            <RecipeCard recipe={item}
-              toast={toast}/>
-        )}
+          <>
+            {recipeSearchResults.length > 0 ?
+              <>
+                {recipeSearchResults.map(item =>
+                  <RecipeCard recipe={item}
+                    toast={toast}/>
+                  )}
+              </>
+              : <p>No results :(</p>
+            }
+          </>
+        }
       </div>
 
       {// message to user after an action
@@ -86,6 +116,10 @@ const RecipeSearchPage = () => {
           showToast={showToast}
           onClickHideToast={() => setShowToast(false)}
         />}
+
+      {/* popup for error messages */}
+      <Modal showModal={showModal} onDismissCloseModal={closeModal}
+        messageToUser={modalMessage}/>
 
     </div>
   );
