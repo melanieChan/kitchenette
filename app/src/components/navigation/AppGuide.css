@@ -1,0 +1,36 @@
+:root {
+  --padding: 20px;
+}
+
+.popover-content {
+  padding: var(--padding);
+
+  width: calc(400px - calc(var(--padding) * 2));
+  height: 300px;
+  overflow-y: scroll;
+
+  color: black;
+}
+
+.popover-header { /* contains title of popover and row of tab buttons */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.popover-header h1 { /* title on popover */
+  margin: 0
+}
+
+.row-tab-labels { /* row of tab buttons */
+  display: flex;
+  justify-content: center;
+}
+
+.location-icon svg { /* location icon shown on tab */
+  color: salmon;
+}
+
+.tab-content { /* container that holds content under tabs */
+}
