@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import './Navbar.css';
 
 import UserButton from './UserButton'
+import AppGuide from './AppGuide'
 
 import { UserContext } from '../../auth/UserContext'
 
@@ -45,6 +46,7 @@ const Navbar = () => {
           )}
         </div>
 
+        <AppGuide />
         <UserButton/>
       </div>
     </>
