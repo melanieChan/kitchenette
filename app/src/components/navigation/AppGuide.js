@@ -6,6 +6,12 @@ import './AppGuide.css'
 
 import { UserContext } from '../../auth/UserContext'
 
+const pathsMap = {
+  '/pantry' : 0,
+  '/search' : 1,
+  '/cookbook' : 2
+}
+
 // shows username and logout option
 const AppGuide = () => {
   const {userData, setUserData} = useContext(UserContext) // access user data
@@ -15,7 +21,15 @@ const AppGuide = () => {
 
   const MODAL_Z_INDEX = new FixedZIndex(50); // used to position open button's tooltip
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  var currentTabIndex = pathsMap[window.location.pathname] // get index based on current url
+  // activeIndex will either be index of current route, or default to first index's route if we're on the Auth page
+  const [activeIndex, setActiveIndex] = useState(currentTabIndex || 0);
+
+  useEffect(() => {
+    // route changes will also cause popover changes
+    // reset tab to show data corresponding to current route
+    setActiveIndex(pathsMap[window.location.pathname] || 0)
+  }, [openPopover])
 
   const handleChange = ({ activeTabIndex, event }) => {
     event.preventDefault();
@@ -83,7 +97,7 @@ const AppGuide = () => {
                 <div className="row-tab-labels">
                   <TabsMap
                     activeTabIndex={activeIndex}
-                    homeTabIndex={1}
+                    homeTabIndex={currentTabIndex}
                     onChange={handleChange}
                     tabs={[{text: "Pantry"}, {text: "Search"}, {text: "Cookbook"}]}
                     wrap

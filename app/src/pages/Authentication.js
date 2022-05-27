@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../auth/UserContext'
 import '../Page.css';
 import image from '../styles/undraw_cooking.png'
+
+import { IconButton } from 'gestalt'
+
+import { UserContext } from '../auth/UserContext'
+
 const Authentication = () => {
   document.title = "Kitchenette"
 
@@ -22,6 +26,7 @@ const Authentication = () => {
           { userData ?
             <> {/* show user info if they're logged in */}
               <h1>welcome, <br/>{userData.user.username}</h1>
+              <p>Click on <IconButton accessibilityLabel="Icon Button display" icon="question-mark" /> at the top right for more description on features.</p>
             </> :
             <> {/* show log in prompt for users not logged in */}
               <p>Username</p>
