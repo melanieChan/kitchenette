@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useLayoutEffect, useContext } from 
 import '../Page.css';
 import './Cookbook.css';
 import defaultImage from '../styles/undraw_breakfast.png'
+import { IconButton } from 'gestalt';
+
 import RecipePaper from '../components/cards/RecipePaper'
 import MultiSelect from '../components/inputs/MultiSelect'
 
@@ -68,10 +70,17 @@ const Cookbook = () => {
       .catch(err => { console.log(err) });
   }
 
-  // if there're no recipes saved
-  if (!recipeSearchResults || recipeSearchResults.length === 0) {
+  if (!recipeSearchResults) {
     return (
-      <div id="content" className="page-content center">
+      <div className="content">
+      </div>
+    );
+  }
+
+  // if there're no recipes saved
+  else if (recipeSearchResults.length === 0) {
+    return (
+      <div className="content page-content center">
         <div style={{maxWidth: '50%'}}><img src={defaultImage}/></div>
         <h2 className="salmon-text">No recipes saved! Save a few through the Search page to see them in your cookbook.</h2>
       </div>
@@ -127,11 +136,13 @@ const Cookbook = () => {
         {/* next button */
           recipeSearchResults.length > 1 &&
           <div style={{display: 'flex', alignItems: 'center'}}>
-            <button className="button" onClick={() => {
+            <IconButton icon="arrow-forward" size="xl"
+              tooltip={{text: "Next"}}
+              onClick={() => {
               // flip page
                   currentPageRef.current.classList.add('flip'); // animate current page turning
-                  setTimeout(()=>{turnPage()}, 1500) // go to next page after 1.2 seconds
-            }}>next ></button>
+                  setTimeout(()=>{turnPage()}, 1100) // go to next page after 1.1 seconds
+              }} />
           </div>
         }
       </div>

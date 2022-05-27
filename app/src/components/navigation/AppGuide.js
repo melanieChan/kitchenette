@@ -75,7 +75,7 @@ const AppGuide = () => {
           ref={userBtnRef}
           onClick={() => setOpenPopover(!openPopover)}
           icon="question-mark"
-          tooltip={{text: "Tutorial", zIndex: MODAL_Z_INDEX}}
+          tooltip={{text: "Orientation", zIndex: MODAL_Z_INDEX}}
         />
 
       {openPopover &&
