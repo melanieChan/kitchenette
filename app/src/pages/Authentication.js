@@ -50,8 +50,11 @@ const Authentication = () => {
   }
 
   const handleInputChange = (...[{value}, validInputFn, stateUpdater]) => {
+    // check and update display of inputs
     validInputFn(value)
     stateUpdater(value)
+    
+    setAuthError(null) // clear error message from previous register/login attempt
   }
 
   function login() {
