@@ -34,17 +34,19 @@ const Authentication = () => {
   function validateInput(value, errorSetter, errorMessage) {
     if (isValidInput(value)) {
       errorSetter(null)
+      return true
     } else {
       errorSetter(errorMessage)
+      return false
     }
   }
 
   function validateUsername(value) {
-    validateInput(value, setUsernameError, 'Username must have at least 1 character')
+    return validateInput(value, setUsernameError, 'Username must have at least 1 character')
   }
 
   function validatePassword(value) {
-    validateInput(value, setPasswordError, 'Password must have at least 1 character')
+    return validateInput(value, setPasswordError, 'Password must have at least 1 character')
   }
 
   const handleInputChange = (...[{value}, validInputFn, stateUpdater]) => {
@@ -53,6 +55,11 @@ const Authentication = () => {
   }
 
   function login() {
+    // check inputs before calling api
+    if (!validateUsername(usernameInput) || !validatePassword(passwordInput)) {
+      return
+    }
+
     loginAuth(usernameInput, passwordInput)
       .then( (response) => {
         // after data received, update UI with user info
