@@ -249,3 +249,27 @@ export const loginAuth = (username, password) => {
     console.log("Fetch error: " + error);
   });
 }
+
+export const registerAuth = (username, password) => {
+  return fetch(`http://localhost:5000/register/`, {
+    method: "POST",
+    body: JSON.stringify({username: username, password: password}),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
+  .then(function(response) {
+    if (response.status !== 200) {
+      console.log(`Error. Status code: ${response.status}`);
+      return;
+    }
+    // get data and send it back
+    return response.json().then(function(data) {
+      return data
+    });
+  })
+  .catch(function(error) {
+    console.log("Fetch error: " + error);
+  });
+}

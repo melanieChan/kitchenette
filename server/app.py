@@ -115,6 +115,27 @@ def login():
 
     return jsonify({'success': True, 'user': user_formatted}), 200
 
+# adds a new user to the table if the username isn't already taken
+@app.route('/register/', methods=["POST"])
+def register():
+    # get inputs
+    user_input_data = request.get_json()
+    username_input = user_input_data['username']
+    password_input = user_input_data['password']
+
+    user = User.query.filter_by(username=username_input).first()
+
+    # check username
+    if (user is not None):
+        return jsonify({'success': False, 'msg': 'Username taken'}), 200
+
+    new_user = User(username=username_input, password=password_input)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'success': True}), 200
+
+
 # ideally should check if token is valid and get user_id after the check,
 # but for now it'll skip the token check, and just use token as user_id (user_id value is passed from client as argument into token parameter)
 def get_user_id_by_token(token):

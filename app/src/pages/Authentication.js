@@ -6,7 +6,7 @@ import image from '../styles/undraw_cooking.png'
 import { IconButton, Module, Link, TextField, Checkbox } from 'gestalt'
 
 import { UserContext } from '../auth/UserContext'
-import { loginAuth } from '../api/provider';
+import { loginAuth, registerAuth } from '../api/provider';
 
 const Authentication = () => {
   document.title = "Kitchenette"
@@ -89,6 +89,27 @@ const Authentication = () => {
       .catch(err => { console.log(err) });
   }
 
+  // cals api to register, and if it's sucessful, logs the newly registered user in
+  function register() {
+    // check inputs
+    if (!validateUsername(usernameInput) || !validatePassword(passwordInput)) {
+      return
+    }
+
+    registerAuth(usernameInput, passwordInput)
+      .then( (response) => {
+        console.log(response)
+
+        // after data received, login
+        if (response.success) {
+          login()
+        } else {
+          setAuthError(response.msg)
+        }
+      })
+      .catch(err => { console.log(err) });
+  }
+
   const autofillWithDemoAccount = ({ checked }) => {
     setDemoCheckedAutofill(checked) // check or uncheck the box
 
@@ -164,7 +185,7 @@ const Authentication = () => {
 
               <br/> {/* login and sign in buttons */}
               <div style={{display: 'flex', minWidth: '300px', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px'}}>
-                <button className="button">sign up</button>
+                <button className="button" onClick={register}>sign up</button>
                 <button className="button" onClick={login}>login</button>
               </div>
 
