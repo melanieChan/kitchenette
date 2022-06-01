@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, url_for, flash, redirect, jsonify
 from flask_cors import CORS
 from werkzeug.exceptions import abort
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -103,8 +104,8 @@ def login():
     if (user is None):
         return jsonify({'success': False, 'msg': 'There\'s no account with this username'}), 200
 
-    # check password
-    if (password_input != user.password):
+    # check if stored password hash matches plaintext password input
+    if (check_password_hash(user.password, password_input) == False):
         return jsonify({'success': False, 'msg': 'Wrong password'}), 200
 
     # convert the format so it can be turned into json easily
@@ -129,7 +130,9 @@ def register():
     if (user is not None):
         return jsonify({'success': False, 'msg': 'Username taken'}), 200
 
-    new_user = User(username=username_input, password=password_input)
+    hashed_password = generate_password_hash(password_input) # hashes password using its plaintext
+    new_user = User(username=username_input, password=hashed_password)
+
     db.session.add(new_user)
     db.session.commit()
 
