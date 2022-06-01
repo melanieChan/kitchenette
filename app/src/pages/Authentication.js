@@ -6,6 +6,7 @@ import image from '../styles/undraw_cooking.png'
 import { IconButton, Module, Link, TextField } from 'gestalt'
 
 import { UserContext } from '../auth/UserContext'
+import { loginAuth } from '../api/provider';
 
 const Authentication = () => {
   document.title = "Kitchenette"
@@ -17,6 +18,8 @@ const Authentication = () => {
 
   const [usernameError, setUsernameError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
+
+  const [authError, setAuthError] = useState(null)
 
   // check if value is empty
   function isValidInput(value) {
@@ -50,10 +53,26 @@ const Authentication = () => {
   }
 
   function login() {
-    setUserData({
-      user: {username: 'python122', user_id: 1},
-      token: 'token123'
-    })
+    loginAuth(usernameInput, passwordInput)
+      .then( (response) => {
+        // after data received, update UI with user info
+        if (response.success) {
+          setUserData({
+            user: response.user,
+            token: 'token123'
+          })
+
+          // clear input fields
+          setAuthError(null)
+          setUsernameError(null)
+          setPasswordError(null)
+          setUsernameInput('')
+          setPasswordInput('')
+        } else {
+          setAuthError(response.msg)
+        }
+      })
+      .catch(err => { console.log(err) });
   }
 
   return (
@@ -111,6 +130,10 @@ const Authentication = () => {
                 <button className="button">sign up</button>
                 <button className="button" onClick={login}>login</button>
               </div>
+
+              {/* show any errors after signup/login attempt */
+                authError && <p style={{color: 'tomato'}}>{authError}</p>
+              }
             </>
           }
         </div>

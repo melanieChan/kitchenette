@@ -90,6 +90,31 @@ def get_user(user_id):
 
     return jsonify(user_formatted)
 
+@app.route('/login/', methods=["POST"])
+def login():
+    # get inputs
+    user_input_data = request.get_json()
+    username_input = user_input_data['username']
+    password_input = user_input_data['password']
+
+    user = User.query.filter_by(username=username_input).first()
+
+    # check username
+    if (user is None):
+        return jsonify({'success': False, 'msg': 'There\'s no account with this username'}), 200
+
+    # check password
+    if (password_input != user.password):
+        return jsonify({'success': False, 'msg': 'Wrong password'}), 200
+
+    # convert the format so it can be turned into json easily
+    user_formatted = {
+        'user_id' : user.user_id,
+        'username' : user.username,
+    }
+
+    return jsonify({'success': True, 'user': user_formatted}), 200
+
 # to add an ingredient to pantry
 @app.route('/add_to_pantry/', methods=["POST"])
 def add_item_to_pantry():
