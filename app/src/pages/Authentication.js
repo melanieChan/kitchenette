@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../Page.css';
+import '../styles/gestaltOverride.css';
 import image from '../styles/undraw_cooking.png'
 
-import { IconButton, Module, Link } from 'gestalt'
+import { IconButton, Module, Link, TextField } from 'gestalt'
 
 import { UserContext } from '../auth/UserContext'
 
@@ -10,6 +11,43 @@ const Authentication = () => {
   document.title = "Kitchenette"
 
   const {userData, setUserData} = useContext(UserContext) // access user data
+
+  const [usernameInput, setUsernameInput] = useState('')
+  const [passwordInput, setPasswordInput] = useState('')
+
+  const [usernameError, setUsernameError] = useState(null)
+  const [passwordError, setPasswordError] = useState(null)
+
+  // check if value is empty
+  function isValidInput(value) {
+    if (value == '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  // sets error for invalid inputs
+  function validateInput(value, errorSetter, errorMessage) {
+    if (isValidInput(value)) {
+      errorSetter(null)
+    } else {
+      errorSetter(errorMessage)
+    }
+  }
+
+  function validateUsername(value) {
+    validateInput(value, setUsernameError, 'Username must have at least 1 character')
+  }
+
+  function validatePassword(value) {
+    validateInput(value, setPasswordError, 'Password must have at least 1 character')
+  }
+
+  const handleInputChange = (...[{value}, validInputFn, stateUpdater]) => {
+    validInputFn(value)
+    stateUpdater(value)
+  }
 
   function login() {
     setUserData({
@@ -51,12 +89,22 @@ const Authentication = () => {
               </div>
             </> :
             <> {/* show log in prompt for users not logged in */}
-              <p>Username</p>
-              <input className="input"/>
+              <TextField
+                  id="gestaltTextField"
+                  onChange={e => handleInputChange(e, validateUsername, setUsernameInput)}
+                  value={usernameInput}
+                  label='Username' type="text"
+                  errorMessage={usernameError ? usernameError : ''}
+                  />
 
               <br/>
-              <p>Password</p>
-              <input className="input"/>
+              <TextField
+                  id="gestaltTextField"
+                  onChange={e => handleInputChange(e, validatePassword, setPasswordInput)}
+                  value={passwordInput}
+                  label='Password' type="password"
+                  errorMessage={passwordError ? passwordError : ''}
+                  />
 
               <br/> {/* login and sign in buttons */}
               <div style={{display: 'flex', minWidth: '300px', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px'}}>

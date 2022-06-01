@@ -1,0 +1,19 @@
+/* username and password inputs
+  for now, use one id for both inputs,
+    since the components can't take classname params
+    and using refs won't apply changes before render
+*/
+#gestaltTextField {
+  background-color: transparent;
+  border-color: silver !important;
+}
+
+#gestaltTextField:focus {
+  border-color: lightsalmon !important;
+
+  box-shadow: 0px 0px 6px salmon; /* remove default blue outline */
+}
+
+#gestaltTextField-error {
+  color: tomato;
+}
