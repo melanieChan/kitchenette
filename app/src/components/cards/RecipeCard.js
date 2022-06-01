@@ -8,7 +8,7 @@ import { UserContext } from '../../auth/UserContext'
 // A card showing details about a recipe
 const RecipeCard = ({recipe, toast}) => {
   const { userData } = useContext(UserContext) // get user data
-  var { token } = userData ? userData : {token: 'null'} // set a valid token for now
+  var { token } = userData ? userData : {token: 'wrong token'} // set a valid token for now
 
   const [instructionsList, setInstructionsList] = useState(null) // list of strings representing list of instructions
   const [showInstructions, setShowInstructions] = useState(false)

@@ -13,7 +13,7 @@ import { UserContext } from '../auth/UserContext'
 const RecipeSearchPage = () => {
   document.title = "Search Recipes"
   const {userData} = useContext(UserContext) // access user data
-  const {token} = userData ? userData : {token: 'null'}
+  const {token} = userData ? userData : {token: 'wrong token'}
 
   const [selected, setSelected] = useState([]); // items user has selected
   const [recipeSearchResults, setRecipeSearchResults] = useState(null);

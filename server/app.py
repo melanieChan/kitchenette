@@ -115,19 +115,28 @@ def login():
 
     return jsonify({'success': True, 'user': user_formatted}), 200
 
+# ideally should check if token is valid and get user_id after the check,
+# but for now it'll skip the token check, and just use token as user_id (user_id value is passed from client as argument into token parameter)
+def get_user_id_by_token(token):
+    try:
+        int(token)
+        return token
+    except:
+        return -1
+
 # to add an ingredient to pantry
 @app.route('/add_to_pantry/', methods=["POST"])
 def add_item_to_pantry():
-    current_user_id = 1 # for now, use one default user account
-
     # get input and store it as a new ingredient
     user_input_data = request.get_json()
     print(user_input_data)
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # get value of user inputs
     ingredientNameInput = user_input_data['name']
@@ -184,7 +193,11 @@ def find_or_add_ingredient_db(ingredient_name):
 # get all items in pantry
 @app.route('/get_pantry_items/', methods=["POST"])
 def get_pantry_items():
-    current_user_id = 1
+    # get inputs
+    user_input_data = request.get_json()
+    user_token = user_input_data['token']
+
+    current_user_id = get_user_id_by_token(user_token)
 
     all_user_pantry_items = PantryIngredient.query.filter_by(user_id=current_user_id).all()
 
@@ -211,14 +224,14 @@ def get_ingredient_name_by_id(ingredient_id):
 # deletes a PantryIngredient of the current user
 @app.route('/delete_pantry_item/', methods=["POST"])
 def delete_pantry_item():
-    current_user_id = 1
-
     # get input
     user_input_data = request.get_json()
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # get value of user inputs
     delete_me_id = user_input_data['ingredient_id']
@@ -238,7 +251,7 @@ def search_by_ingredient_names():
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
 
     # get ingredient input
@@ -287,15 +300,15 @@ def get_recipe_ingredients(recipe_id):
 # saves a new recipe for a user, given a recipe_id and user_id
 @app.route('/save_recipe/', methods=["POST"])
 def save_recipe():
-    current_user_id = 1
-
     # get input
     user_input_data = request.get_json()
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # get ingredient input
     recipe_to_save = user_input_data['recipeData']
@@ -317,15 +330,15 @@ def save_recipe():
 
 @app.route('/get_save_recipes/', methods=["POST"])
 def get_save_recipes():
-    current_user_id = 1
-
     # get input
     user_input_data = request.get_json()
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # find data
     saved_recipes = SavedRecipe.query.filter_by(user_id=current_user_id).all()
@@ -337,16 +350,15 @@ def get_save_recipes():
 
 @app.route('/update_pantry_item_quantity/', methods=["POST"])
 def update_pantry_item_quantity():
-    current_user_id = 1
-
-
     # get input
     user_input_data = request.get_json()
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     ingredient_data = user_input_data['ingredient_data']
     print(ingredient_data)
@@ -368,14 +380,14 @@ def update_pantry_item_quantity():
 # will also add or update the quantity of the recipe product to the user's pantry
 @app.route('/cook_recipe/', methods=["POST"])
 def cook_recipe():
-    current_user_id = 1
-
     user_input_data = request.get_json() # get input
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # get input data
     recipe_data = user_input_data['recipe_data']
@@ -421,13 +433,14 @@ def get_ingredient_by_name(ingredient_name):
 
 @app.route('/unsave_recipe/', methods=["POST"])
 def unsave_recipe():
-    current_user_id = 1
     user_input_data = request.get_json() # get input
 
     # check token
     user_token = user_input_data['token']
-    if user_token != 'token123':
+    if user_token == 'wrong token':
         return 'Invalid token', 400
+
+    current_user_id = get_user_id_by_token(user_token)
 
     # get input data
     unsave_recipe_id = user_input_data['recipe_id']

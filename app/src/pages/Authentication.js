@@ -72,7 +72,7 @@ const Authentication = () => {
         if (response.success) {
           setUserData({
             user: response.user,
-            token: 'token123'
+            token: response.user.user_id
           })
 
           // clear input fields

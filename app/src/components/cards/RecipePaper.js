@@ -10,7 +10,7 @@ import { UserContext } from '../../auth/UserContext'
 // A narrow rectangle showing details about a recipe
 const RecipePaper = ({recipe, onClickUnsave}) => {
   const { userData } = useContext(UserContext) // get user data
-  var { token } = userData ? userData : {token: 'null'} // set a valid token for now
+  var { token } = userData ? userData : {token: 'wrong token'} // set a valid token for now
 
   const [ingredients, setIngredients] = useState([])
 

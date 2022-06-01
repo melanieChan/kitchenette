@@ -7,7 +7,7 @@ import { UserContext } from '../../auth/UserContext'
 // A card showing details about an ingredient
 const IngredientCard = ({ingredient, classNames, onDelete}) => {
   const { userData } = useContext(UserContext) // get user data
-  var { token } = userData ? userData : {token: 'null'} // set a valid token for now
+  var { token } = userData ? userData : {token: 'wrong token'} // set a valid token for now
 
   const [quantity, setQuantity] = useState(0)
 

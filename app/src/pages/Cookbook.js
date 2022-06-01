@@ -14,7 +14,7 @@ const Cookbook = () => {
   document.title = "Cookbook Recipes"
 
   const { userData } = useContext(UserContext) // get user data
-  var { token } = userData ? userData : {token: 'token123'} // set a valid token for now
+  var { token } = userData ? userData : {token: 'wrong token'}
 
   const currentPageRef = useRef(null)
 
