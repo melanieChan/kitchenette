@@ -3,7 +3,7 @@ import '../Page.css';
 import '../styles/gestaltOverride.css';
 import image from '../styles/undraw_cooking.png'
 
-import { IconButton, Module, Link, TextField } from 'gestalt'
+import { IconButton, Module, Link, TextField, Checkbox } from 'gestalt'
 
 import { UserContext } from '../auth/UserContext'
 import { loginAuth } from '../api/provider';
@@ -20,6 +20,9 @@ const Authentication = () => {
   const [passwordError, setPasswordError] = useState(null)
 
   const [authError, setAuthError] = useState(null)
+
+  // controls checkbox display
+  const [checkedDemoAutofill, setDemoCheckedAutofill] = useState(false)
 
   // check if value is empty
   function isValidInput(value) {
@@ -78,11 +81,27 @@ const Authentication = () => {
           setPasswordError(null)
           setUsernameInput('')
           setPasswordInput('')
+          setDemoCheckedAutofill(false)
         } else {
           setAuthError(response.msg)
         }
       })
       .catch(err => { console.log(err) });
+  }
+
+  const autofillWithDemoAccount = ({ checked }) => {
+    setDemoCheckedAutofill(checked) // check or uncheck the box
+
+    // change fields based on user choice
+    if (checked) {
+      setUsernameInput('pandas')
+      setPasswordInput('dataframe')
+      setUsernameError(null)
+      setPasswordError(null)
+    } else {
+      setUsernameInput('')
+      setPasswordInput('')
+    }
   }
 
   return (
@@ -134,6 +153,14 @@ const Authentication = () => {
                   label='Password' type="password"
                   errorMessage={passwordError ? passwordError : ''}
                   />
+
+              <br/>
+              <Checkbox
+                checked={checkedDemoAutofill}
+                id="checkbox"
+                label="Autofill with demo account data"
+                onChange={autofillWithDemoAccount}
+              />
 
               <br/> {/* login and sign in buttons */}
               <div style={{display: 'flex', minWidth: '300px', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px'}}>
