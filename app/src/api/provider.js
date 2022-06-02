@@ -1,5 +1,7 @@
+var api_url = 'http://localhost:5000/'
+
 export const addItemToPantry = (token, ingredientData) => {
-  return fetch(`http://localhost:5000/add_to_pantry/`, {
+  return fetch(api_url + `add_to_pantry/`, {
     method: "POST",
     //credentials: "include",
 
@@ -27,7 +29,7 @@ export const addItemToPantry = (token, ingredientData) => {
 }
 
 export const getPantryItems = (token) => {
-  return fetch(`http://localhost:5000/get_pantry_items/`, {
+  return fetch(api_url + `get_pantry_items/`, {
     method: "POST",
 
     // request using token
@@ -55,7 +57,7 @@ export const getPantryItems = (token) => {
 
 // removes an item from the user's pantry when the quantity falls to 0
 export const deletePantryItem = (token, ingredientToDelete) => {
-  return fetch(`http://localhost:5000/delete_pantry_item/`, {
+  return fetch(api_url + `delete_pantry_item/`, {
     method: "POST",
     body: JSON.stringify({...ingredientToDelete, token: token}), // send data to delete
     cache: "no-cache",
@@ -80,7 +82,7 @@ export const deletePantryItem = (token, ingredientToDelete) => {
 }
 
 export const searchRecipesByIngredients = (token, ingredientListQuery) => {
-  return fetch(`http://localhost:5000/search_by_ingredient_names/`, {
+  return fetch(api_url + `search_by_ingredient_names/`, {
     method: "POST",
     body: JSON.stringify({ingredients: ingredientListQuery, token: token}), // send data to search
     cache: "no-cache",
@@ -104,7 +106,7 @@ export const searchRecipesByIngredients = (token, ingredientListQuery) => {
 
 export const saveRecipe = (token, recipeData) => {
   console.log(recipeData)
-  return fetch(`http://localhost:5000/save_recipe/`, {
+  return fetch(api_url + `save_recipe/`, {
     method: "POST",
     // send input data with token
     body: JSON.stringify({recipeData: recipeData, token: token}),
@@ -129,7 +131,7 @@ export const saveRecipe = (token, recipeData) => {
 }
 
 export const getSavedRecipes = (token) => {
-  return fetch(`http://localhost:5000/get_save_recipes/`, {
+  return fetch(api_url + `get_save_recipes/`, {
     method: "POST",
     body: JSON.stringify({token: token}),
     cache: "no-cache",
@@ -153,7 +155,7 @@ export const getSavedRecipes = (token) => {
 }
 
 export const updatePantryItemQuantity = (token, ingredientData) => {
-  return fetch(`http://localhost:5000/update_pantry_item_quantity/`, {
+  return fetch(api_url + `update_pantry_item_quantity/`, {
     method: "POST",
     body: JSON.stringify({ingredient_data: ingredientData, token: token}),
     cache: "no-cache",
@@ -178,7 +180,7 @@ export const updatePantryItemQuantity = (token, ingredientData) => {
 }
 
 export const cookRecipe = (token, recipeData) => {
-  return fetch(`http://localhost:5000/cook_recipe/`, {
+  return fetch(api_url + `cook_recipe/`, {
     method: "POST",
     body: JSON.stringify({recipe_data: recipeData, token: token}),
     cache: "no-cache",
@@ -203,7 +205,7 @@ export const cookRecipe = (token, recipeData) => {
 }
 
 export const unsaveRecipe = (token, recipe_id) => {
-  return fetch(`http://localhost:5000/unsave_recipe/`, {
+  return fetch(api_url + `unsave_recipe/`, {
     method: "POST",
     body: JSON.stringify({recipe_id: recipe_id, token: token}),
     cache: "no-cache",
@@ -227,7 +229,7 @@ export const unsaveRecipe = (token, recipe_id) => {
 }
 
 export const loginAuth = (username, password) => {
-  return fetch(`http://localhost:5000/login/`, {
+  return fetch(api_url + `login/`, {
     method: "POST",
     body: JSON.stringify({username: username, password: password}),
     cache: "no-cache",
@@ -251,7 +253,7 @@ export const loginAuth = (username, password) => {
 }
 
 export const registerAuth = (username, password) => {
-  return fetch(`http://localhost:5000/register/`, {
+  return fetch(api_url + `register/`, {
     method: "POST",
     body: JSON.stringify({username: username, password: password}),
     cache: "no-cache",
