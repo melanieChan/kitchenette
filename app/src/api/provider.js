@@ -1,4 +1,4 @@
-var api_url = 'https://kitchenette-backend.herokuapp.com/'
+var api_url = 'https://kitchenette-backend.onrender.com/'
 
 export const addItemToPantry = (token, ingredientData) => {
   return fetch(api_url + `add_to_pantry/`, {
